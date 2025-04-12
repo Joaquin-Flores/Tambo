@@ -1,10 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Tambo.Login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Sign-up.aspx.cs" Inherits="Tambo.Sign_up" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Tambo - Login</title>
+    <title>Tambo - Sign-up</title>
     <script src="Scripts/bootstrap.js"></script>
     <link href="Content/Site.css" rel="stylesheet" />
     <link href="Content/bootstrap.css" rel="stylesheet" />
@@ -20,12 +20,12 @@
             <div class="row">
                 <div class="col">
                     <div class="card w-50 m-auto p-5">
-                        <h1 class="text-center">Welcome back</h1>
+                        <h1 class="text-center">Create your account</h1>
                         <label>Enter email address</label>
                         <input type="email" name="Email" value="" class="form-control m-3" />
                         <label>Password</label>
                         <input type="password" name="Password" value="" class="form-control m-3" />
-                        <button class="btn btn-primary btn-lg m-3">Login</button>
+                        <button class="btn btn-primary btn-lg m-3">Create account</button>
                     </div>
                 </div>
             </div>

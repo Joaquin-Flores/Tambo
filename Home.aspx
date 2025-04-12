@@ -5,13 +5,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Tambo - Home Page</title>
+    <script src="Scripts/bootstrap.js"></script>
     <link href="Content/Site.css" rel="stylesheet" />
     <link href="Content/bootstrap.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
 </head>
-<body class="pt-5 mt-4">
+<body data-bs-spy="scroll" data-bs-offset="0" tabindex="0" data-bs-target="#navbar" class="pt-5 mt-4" style="position:relative;">
 
     <!-- Header -->
     <header class="fixed-top bg-light shadow-sm">
@@ -19,16 +20,13 @@
             <div class="d-flex align-items-center justify-content-between">
                 <div class="col-3 mb-0">
                     <a href="/Home">
-                        <img src="tambo-logo-color.png" class="img-fluid" width="80" alt="Brand logo" />
+                        <img src="tambo-logo-dark.png" class="img-fluid m-3" width="50" alt="Brand logo" />
                     </a>
                 </div>
 
-                <ul class="nav nav-pills">
-                    <li class="nav-item"><a href="#welcome" class="nav-link active px-2">Welcome</a></li>
+                <ul id="navbar" class="nav nav-pills">
+                    <li class="nav-item"><a href="#welcome" class="nav-link px-2">Welcome</a></li>
                     <li class="nav-item"><a href="#features" class="nav-link px-2">Features</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2">Pricing</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2">FAQs</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2">About</a></li>
                 </ul>
 
                 <div class="col-3 text-end">
@@ -52,79 +50,50 @@
                     </h1>
                     <h2 class="display-6">Your all-in-one farm management app</h2>
                     <a class="btn btn-lg btn-primary mt-5" href="/Sign-up">Sign-up</a>
+                    <a class="btn btn-lg btn-outline-secondary ms-3 mt-5" href="#features">See more</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="vh-100 align-content-center">
+    <section id="features" class="vh-100 align-content-center features">
         <div class="container text-center">
             <div class="row">
                 <div class="col text-white">
-                    <h2 class="display-6 mb-5">Key features of the software</h2>
+                    <h2 class="display-6 mb-5 fw-bold">Key features of the software</h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <div class="card">
-                        <h3></h3>
+                        <div>
+                          <i class="fa-solid fa-chart-line my-4" style="font-size: 3rem; color: #4CAF50;"></i>
+                        </div>
+                        <h3>Real-Time Analytics</h3>
+                        <p class="p-2">Track your farm’s performance with live data and visual reports.</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div>
+                          <i class="fa-solid fa-cow my-4" style="font-size: 3rem; color: #4CAF50;"></i>
+                        </div>
+                        <h3>Livestock Management</h3>
+                        <p class="p-2">Effortlessly track your livestock inventory, monitor statuses, and stay updated on progress in real-time.</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div>
+                          <i class="fa-solid fa-comment-dots my-4" style="font-size: 3rem; color: #4CAF50;"></i>
+                        </div>
+                        <h3>Smart Reminders</h3>
+                        <p class="p-2">Stay on top of your daily responsibilities with intelligent reminders and activity tracking.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <section class="hero">
-        <div class="overlay"></div>
-        <div class="col-6">
-            <asp:Image ImageUrl="tamboLogo.png" runat="server" />
-        </div>
-        <div class="col-6">
-            <div class="container">
-                <h1 class="display-1">Welcome to <span class="fw-bold" style="font-family: 'Playfair Display', serif; font-style: italic;">Tambo</span></h1>
-                <h2 class="lead">Your all-in-one farm management dashboard</h2>
-                <a href="#features" class="btn btn-primary btn-lg mt-4">Explore Features</a>
-            </div>
-        </div>
-    </section>
-
-
-
-    <!-- Features Section -->
-    <section class="py-5">
-      <div class="container text-center">
-        <h2 class="mb-4">Key Features</h2>
-        <div class="row">
-          <div class="col-md-4 mb-4">
-            <div class="feature-box">
-              <div class="feature-icon mb-3">
-                <i class="fas fa-chart-line"></i>
-              </div>
-              <h4>Real-Time Analytics</h4>
-              <p>Track your farm’s performance with live data and visual reports.</p>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="feature-box">
-              <div class="feature-icon mb-3">
-                <i class="fas fa-leaf"></i>
-              </div>
-              <h4>Crop Management</h4>
-              <p>Easily manage your crops, from planting to harvest.</p>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="feature-box">
-              <div class="feature-icon mb-3">
-                <i class="fas fa-users"></i>
-              </div>
-              <h4>Team Collaboration</h4>
-              <p>Collaborate with your team to manage tasks and resources efficiently.</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- Call-to-Action Section -->
@@ -132,17 +101,28 @@
       <div class="container">
         <h2>Ready to take your farm management to the next level?</h2>
         <p class="lead">Sign in to start using Tambo and streamline your operations today!</p>
-        <a href="login.aspx" class="btn btn-primary btn-lg">Sign In</a>
+        <a href="/Sign-up" class="btn btn-primary btn-lg">Sign-up</a>
       </div>
     </section>
 
     <!-- Footer Section -->
-    <footer class="footer">
-      <p>&copy; 2025 Tambo. All rights reserved.</p>
-      <p>
-        <a href="privacy.html" class="text-white">Privacy Policy</a> | 
-        <a href="terms.html" class="text-white">Terms of Service</a>
-      </p>
+    <footer class="bg-dark py-3">
+        <div class="container text-center text-white">
+            <p>&copy; 2025 Tambo. All rights reserved.</p>
+            <p>Designed by <a class="text-white" href="https://github.com/Joaquin-Flores">Joaquín Flores</a></p>
+        </div>
     </footer>
+
+    <!-- Scroll-to-top Button -->
+    <a onclick="scrollToTop()" class="scroll-to-top " href="javascript:void(0);" ><i class="fa-solid fa-angle-up"></i></a>
+    <script type="text/javascript">
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+    </script>
+
 </body>
 </html>

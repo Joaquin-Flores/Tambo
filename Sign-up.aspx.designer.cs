@@ -11,7 +11,7 @@ namespace Tambo
 {
 
 
-    public partial class Login
+    public partial class Sign_up
     {
     }
 }

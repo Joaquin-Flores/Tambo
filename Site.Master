@@ -5,97 +5,73 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title><%: Page.Title %> - Milk Farm Dashboard</title>
+    <title><%: Page.Title %> - Tambo Admin</title>
     <script src="Scripts/bootstrap.js"></script>
-    <link href="Content/Site.css" rel="stylesheet" />
     <link href="Content/bootstrap.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link href="Content/Site.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
-    <style>
-    body {
-      overflow-x: hidden;
-      font-family: 'Roboto', sans-serif;
-    }
-    .sidebar {
-      height: 100vh;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 220px;
-      background-color: #343a40;
-      padding-top: 60px;
-    }
-    .sidebar a {
-      display: block;
-      padding: 15px;
-    }
-    .sidebar a:hover {
-      background-color: #495057;
-    }
-    .content {
-      margin-left: 220px;
-      margin-top: 60px;
-      padding: 40px;
-    }
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background-color: #aa8754;
-      color: #fafafa;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      z-index: 1000;
-    }
-    a {
-        color: #fafafa;
-        text-decoration: none;
-    }
-    .scroll-to-top {
-        position: fixed;
-        bottom: 10px;
-        right: 10px;
-        text-align: center;
-        background: #889092aa;
-        border-radius: 10px;
-        width: 50px;
-        height: 50px;
-        font-size: 30px;
-    }
-    .scroll-to-top:hover {
-        background: #455052aa;
-    }
-  </style>
 </head>
-<body>
+<body style="margin-top:78px;">
     <form id="form1" runat="server">
-    <div class="header">
-        <a href="/">
-            <h4 class="m-0">Milk Farm Admin</h4>
-        </a>
-      
-      <div>
-          <a href="login.aspx" class="btn btn-light btn-sm">Login</a>
-          <a href="/" class="btn btn-light btn-sm">Logout</a>
-      </div>
-    </div>
 
-    <div class="sidebar">
-      <a href="Clients.aspx">Clients</a>
-      <a href="Deliveries.aspx">Deliveries</a>
-      <a href="Products.aspx">Products</a>
-    </div>
+        <!-- Header -->
+        <header class="fixed-top bg-dark shadow-sm z-1">
+            <div style="margin: 20px 0;">
+                <div class="col text-end">
+                    <asp:DropDownList CssClass="btn btn-light me-3" ID="dropdownDB" runat="server">
+                        <asp:ListItem Text="Laptop" />
+                        <asp:ListItem Text="PC" />
+                    </asp:DropDownList>
+                    <a class="btn btn-outline-light me-5" href="/Home">Logout</a>
+                </div>
+            </div>
+        </header>
 
-    <div class="content">
-      <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-    </div>
-    <a onclick="scrollToTop()" class="scroll-to-top" href="javascript:void(0);" >⇑</a>
-  </form>
+        <!-- Sidebar -->
+        <nav class="col-2 p-3  bg-gradient bg-dark position-fixed z-2" style=" top:0px; left:0px; bottom:0px;">
+            <div class="text-center">
+                <a href="/Home">
+                    <img src="tambo-logo-light.png" class="img-fluid" width="100" alt="Brand logo" />
+                </a>
+            </div>
+            <hr>
+            <ul class="nav nav-pills flex-column">
+              <li class="nav-item m-1 lead">
+                <a id="dashboardLink" runat="server" href="/" class="nav-link text-light"><i class="fa-solid fa-home me-2"></i>Dashboard</a>
+              </li>
+              <li class="nav-item m-1 lead">
+                <a id="livestockLink" runat="server" href="Livestock" class="nav-link text-light"><i class="fa-solid fa-cow me-2"></i>Livestock</a>
+              </li>
+              <li class="nav-item m-1 lead">
+                <a id="productsLink" runat="server" href="Products" class="nav-link text-light"><i class="fa-solid fa-jar me-2"></i>Products</a>
+              </li>
+              <li class="nav-item m-1 lead">
+                <a id="billsLink" runat="server" href="Bills" class="nav-link text-light"><i class="fa-solid fa-money-bill-transfer me-2"></i>Bills</a>
+              </li>
+              <li class="nav-item m-1 lead">
+                <a id="deliveriesLink" runat="server" href="Deliveries" class="nav-link text-light"><i class="fa-solid fa-truck-fast me-2"></i>Deliveries</a>
+              </li>
+              <li class="nav-item m-1 lead">
+                <a id="chickensLink" runat="server" href="Chickens" class="nav-link text-light"><i class="fa-solid fa-egg me-2"></i>Chickens</a>
+              </li>
+              <li class="nav-item m-1 lead">
+                <a id="settingsLink" runat="server" href="settings" class="nav-link text-light"><i class="fa-solid fa-cog me-2"></i>Settings</a>
+              </li>              
+            </ul>
+            <hr>
+        </nav>
+
+        <!-- Content of the page -->
+        <section class="row m-0">
+            <div class="col-2"></div>
+            <div class="col-10 p-0">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+            </div>
+        </section>
+        <a onclick="scrollToTop()" class="scroll-to-top" href="javascript:void(0);" >⇑</a>
+    </form>
     <script type="text/javascript">
         function scrollToTop() {
             window.scrollTo({

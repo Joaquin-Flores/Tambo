@@ -14,18 +14,44 @@
 </head>
 <body>
 
-    <!-- Features Section -->
-    <section id="features" class="vh-100 align-content-center bg-gradient bg-primary-subtle">
+    <!-- Sign-up Card Section -->
+    <section class="vh-100 align-content-center bg-gradient bg-primary-subtle"> 
         <div class="container">
-            <div class="row">
-                <div class="col">
-                    <div class="card w-50 m-auto p-5">
-                        <h1 class="text-center">Create your account</h1>
-                        <label>Enter email address</label>
-                        <input type="email" name="Email" value="" class="form-control m-3" />
-                        <label>Password</label>
-                        <input type="password" name="Password" value="" class="form-control m-3" />
-                        <button class="btn btn-primary btn-lg m-3">Create account</button>
+            <div class="row justify-content-center">
+                <div class="col-7">
+                    <div class="card p-5">
+                        <h1 class="text-center text-gray-900 my-4">Create your account</h1>
+                        <form class="user">
+                            <div class="form-group row">
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="Name" />
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" placeholder="Last name" />
+                                </div>
+                            </div>
+                            <div class="form-group my-4">
+                                <input type="email" class="form-control form-control-user" placeholder="Email Address"/>
+                            </div>
+                            <div class="form-group row mb-4">
+                                <div class="col">
+                                    <input type="password" class="form-control" placeholder="Password" />
+                                </div>
+                                <div class="col">
+                                    <input type="password" class="form-control" placeholder="Repeat password" />
+                                </div>
+                            </div>
+                            <a href="/" class="btn btn-primary w-100 p-2">Register</a>
+                            <hr/>
+                            <a href="/" class="btn btn-danger w-100 mb-3">
+                                <i class="fa-brands fa-google"></i> Register with Google
+                            </a>
+                            <a href="/" class="btn btn-outline-primary w-100">
+                                <i class="fa-brands fa-facebook"></i> Register with Facebook
+                            </a>
+                        </form>
+                        <hr/>
+                        <a class="text-center" href="/Login">Already have an account? Login</a>
                     </div>
                 </div>
             </div>

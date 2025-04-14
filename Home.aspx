@@ -27,6 +27,7 @@
                 <ul id="navbar" class="nav nav-pills">
                     <li class="nav-item"><a href="#welcome" class="nav-link px-2">Welcome</a></li>
                     <li class="nav-item"><a href="#features" class="nav-link px-2">Features</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link px-2">About</a></li>
                 </ul>
 
                 <div class="col-3 text-end">
@@ -96,8 +97,19 @@
         </div>
     </section>
 
+    <!-- About Section -->
+    <section id="about" class="bg-gradient bg-success-subtle vh-100">
+        <div class="container">
+            <h1 class="p-5 display-1 text-center fw-bold">About us</h1>
+            <p class="lead p-5">We’re a small, hands-on farm on the heart of Patagonia,  dedicated to raising animals with care. Run by two friends turned partners, our mission is simple: produce honest, high-quality food the old-fashioned way.</p>
+            <div class="text-center">
+                <img class="shadow-lg" src="https://content.yourcareer.gov.au/sites/default/files/2022-12/841514-poultryfarmworker.jpg" alt="poultry farm worker" />
+            </div>
+        </div>
+    </section>
+
     <!-- Call-to-Action Section -->
-    <section class="py-5 bg-light text-center">
+    <section class="py-5 bg-light text-center m-0">
       <div class="container">
         <h2>Ready to take your farm management to the next level?</h2>
         <p class="lead">Sign in to start using Tambo and streamline your operations today!</p>

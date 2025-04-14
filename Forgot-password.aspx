@@ -1,10 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Tambo.Login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Forgot-password.aspx.cs" Inherits="Tambo.Forgot_password" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Tambo - Login</title>
+    <title>Tambo - Reset your password</title>
     <script src="Scripts/bootstrap.js"></script>
     <link href="Content/Site.css" rel="stylesheet" />
     <link href="Content/bootstrap.css" rel="stylesheet" />
@@ -14,31 +14,22 @@
 </head>
 <body>
 
-    <!-- Login Card Section -->
     <section class="vh-100 align-content-center bg-gradient bg-primary-subtle">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-7">
                     <div class="card p-5">
-                        <h1 class="text-center text-gray-900 my-4">Welcome back</h1>
+                        <h1 class="text-center text-gray-900 my-4">Forgot Your Password?</h1>
+                        <p class="lead m-2">We get it, stuff happens. Just enter your email address below and we'll send you a link to reset your password!</p>
                         <form class="user">
                             <div class="form-group my-4">
                                 <input type="email" class="form-control form-control-user" placeholder="Email Address"/>
                             </div>
-                            <div class="form-group my-4">
-                                <input type="password" class="form-control form-control-user" placeholder="Password"/>
-                            </div>
-                            <a href="/" class="btn btn-primary w-100 p-2">Login</a>
-                            <hr/>
-                            <a href="/" class="btn btn-danger w-100 mb-3">
-                                <i class="fa-brands fa-google"></i> Login with Google
-                            </a>
-                            <a href="/" class="btn btn-outline-primary w-100">
-                                <i class="fa-brands fa-facebook"></i> Login with Facebook
-                            </a>
+                            <label></label>
+                            <a href="/" class="btn btn-primary w-100 p-2">Reset password</a>
                         </form>
                         <hr/>
-                        <a class="text-center" href="Forgot-password">Forgot password?</a>
+                        <a class="text-center" href="/Login">Already have an account? Login</a>
                         <a class="text-center" href="/Sign-up">Create an account</a>
                     </div>
                 </div>

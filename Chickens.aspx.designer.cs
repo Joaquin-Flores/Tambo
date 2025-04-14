@@ -11,7 +11,7 @@ namespace Tambo
 {
 
 
-    public partial class Contact
+    public partial class Chickens
     {
     }
 }

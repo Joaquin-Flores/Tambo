@@ -190,8 +190,6 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Code\Hasher.cs" />
-    <Content Include="App_Code\TamboDB.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Bills.aspx.cs">
@@ -208,6 +206,9 @@
     <Compile Include="Chickens.aspx.designer.cs">
       <DependentUpon>Chickens.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Code\blip.cs" />
+    <Compile Include="Code\TamboDB.cs" />
+    <Compile Include="Code\Hasher.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

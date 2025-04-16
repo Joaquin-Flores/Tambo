@@ -1,48 +1,82 @@
 ﻿<%@ Page Title="Products" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Products.aspx.cs" Inherits="App.Products" %>
 <asp:Content ID="Products" ContentPlaceHolderID="MainContent" runat="server">
-    <style>
-    .container {
-        margin-top: 30px;
-    }
+    <div class="container-fluid p-5">
+        <h1>Products</h1>
 
-    .form-group {
-        margin-bottom: 20px;
-    }
+        <!-- 2 cards -->
+        <div class="row">
 
-    .Product-image {
-        max-width: 100px;
-        max-height: 100px;
-    }
-</style>
-<div class="container">
-    <h2>Products - Upload and View</h2>
+            <!-- 1st card is for filtering the table -->
+            <div class="col">   
+                <div class="card p-3 text-center shadow">
 
-    <!-- Form to Upload Product Data -->
-    <div class="card mt-4">
-        <div class="card-body">
-            <h4 class="card-title">Add Product</h4>
-            <asp:Label runat="server" ID="Label1" Text="Product Name:"></asp:Label>
-            <asp:TextBox runat="server" ID="txtProductName" CssClass="form-control" placeholder="Enter Product name"></asp:TextBox>
-            
-            <asp:Label runat="server" ID="Label2" Text="Product Email:"></asp:Label>
-            <asp:TextBox runat="server" ID="txtProductEmail" CssClass="form-control" placeholder="Enter Product email"></asp:TextBox>
+                    <h2>Filters</h2>
+                    <div>
+                        
+                        <asp:TextBox CssClass="form-control m-3 mx-auto" ID="txtName" runat="server" placeholder="Name Contains:" />
 
-            <asp:Label runat="server" ID="Label3" Text="Profile Picture:"></asp:Label>
-            <asp:FileUpload runat="server" ID="fuProductImage" CssClass="form-control" />
+                        <asp:TextBox CssClass="form-control m-3 mx-auto" ID="txtDescription" runat="server" placeholder="Description Contains:" />
 
-            <asp:Button runat="server" ID="btnUpload" Text="Upload Product" CssClass="btn btn-primary mt-3" />
+                        <asp:TextBox CssClass="form-control m-3 mx-auto" ID="txtCategory" runat="server" placeholder="Category:" />
 
+                        <asp:TextBox CssClass="form-control m-3 mx-auto" ID="txtShape" runat="server" placeholder="Shape:" />
+
+                        <asp:TextBox CssClass="form-control m-3 mx-auto" ID="txtMinPrice" runat="server" placeholder="Min Price:" />
+
+                        <asp:TextBox CssClass="form-control m-3 mx-auto" ID="txtMaxPrice" runat="server" placeholder="Max Price:" />
+
+                        <asp:TextBox CssClass="form-control m-3 mx-auto" ID="txtMinStock" runat="server" placeholder="Min Stock:" />
+
+                        <asp:TextBox CssClass="form-control m-3 mx-auto" ID="txtMaxStock" runat="server" placeholder="Max Stock:" />
+
+                        <asp:Button ID="btnFilter" CssClass="btn btn-primary" runat="server" Text="Apply Filters" OnClick="btnFilter_Click" />
+                        <asp:Button ID="btnClear" CssClass="btn btn-primary" runat="server" Text="Clear Filters" OnClick="btnClear_Click" />
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col">
+
+                <!-- 2nd card is for adding new products -->
+                <div class="card p-3 text-center shadow">
+                    <h2>Add New Product</h2>
+                    <div id="addProductForm" runat="server">
+                        <div>
+                            <input class="form-control m-3 mx-auto" type="text" id="productName" name="productName" runat="server" placeholder="Name:" />
+                        </div>
+                        <div>
+                            <input class="form-control m-3 mx-auto" type="text" id="productDescription" name="productDescription" runat="server" placeholder="Description:" />
+                        </div>
+                        <div>
+                            <input class="form-control m-3 mx-auto" type="number" id="productPrice" name="productPrice" runat="server" step="0.01" placeholder="Unit Price:" />
+                        </div>
+                        <div>
+                            <input class="form-control m-3 mx-auto" type="number" id="productStock" name="productStock" runat="server" placeholder="Stock Quantity:" />
+                        </div>
+                        <div>
+                            <input class="form-control m-3 mx-auto" type="text" id="productCategory" name="productCategory" runat="server" placeholder="Category:" />
+                        </div>
+                        <div>
+                            <input class="form-control m-3 mx-auto" type="text" id="productShape" name="productShape" runat="server" placeholder="Shape:" />
+                        </div>
+                        <div>
+                            <button class="btn btn-primary" type="submit" runat="server" onserverclick="AddProduct_Click">Add Product</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
 
-    <!-- Display Products -->
-    <h3 class="mt-5">Products List</h3>
-    <asp:GridView runat="server" ID="gvProducts" CssClass="table table-striped" AutoGenerateColumns="False" EmptyDataText="No Products available.">
-        <Columns>
-            <asp:BoundField DataField="ProductName" HeaderText="Product Name" SortExpression="ProductName" />
-            <asp:BoundField DataField="ProductEmail" HeaderText="Product Email" SortExpression="ProductEmail" />
-            <asp:ImageField DataImageUrlField="ProductImage" HeaderText="Profile Picture" SortExpression="ProductImage" ControlStyle-Width="100px" ControlStyle-Height="100px" />
-        </Columns>
-    </asp:GridView>
-</div>
+
+        <!-- Table -->
+        <div class="row">
+            <div class="card my-5 p-5 text-center shadow">
+                <asp:GridView CssClass="table table-striped" ID="gvProducts" runat="server" AutoGenerateColumns="true" />
+            </div>
+        </div>
+
+    </div>
+    
 </asp:Content>

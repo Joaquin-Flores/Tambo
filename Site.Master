@@ -13,21 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
 </head>
-<body style="margin-top:78px;">
+<body>
     <form id="form1" runat="server">
-
-        <!-- Header -->
-        <header class="fixed-top bg-dark shadow-sm z-1">
-            <div style="margin: 20px 0;">
-                <div class="col text-end">
-                    <asp:DropDownList CssClass="btn btn-light me-3" ID="dropdownDB" runat="server">
-                        <asp:ListItem Text="Laptop" />
-                        <asp:ListItem Text="PC" />
-                    </asp:DropDownList>
-                    <a class="btn btn-outline-light me-5" href="/Home">Logout</a>
-                </div>
-            </div>
-        </header>
 
         <!-- Sidebar -->
         <nav class="col-2 p-3  bg-gradient bg-dark position-fixed z-2" style=" top:0px; left:0px; bottom:0px;">
@@ -61,10 +48,21 @@
               </li>              
             </ul>
             <hr>
+            <div class="justify-content-evenly d-flex">
+                <div>
+                    <asp:DropDownList CssClass="btn btn-light" ID="dropdownDB" runat="server" OnSelectedIndexChanged="dropdownDB_SelectedIndexChanged">
+                        <asp:ListItem Text="PC" Value="PC" />
+                        <asp:ListItem Text="Laptop" Value="LAPTOP" />
+                    </asp:DropDownList>
+                </div>
+                <div>
+                    <a class="btn btn-outline-light" href="/Home"><i class="fa-solid fa-right-from-bracket me-1"></i>Logout</a>
+                </div>
+            </div>
         </nav>
 
         <!-- Content of the page -->
-        <section class="row m-0">
+        <section class="row m-0 bg-success-subtle min-vh-100">
             <div class="col-2"></div>
             <div class="col-10 p-0">
                 <asp:ContentPlaceHolder ID="MainContent" runat="server" />

@@ -1,6 +1,7 @@
 ﻿using Antlr.Runtime.Tree;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,8 +11,20 @@ namespace App
 {
     public partial class SiteMaster : MasterPage
     {
+        
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Upon first load
+            if (!IsPostBack) {
+                
+            }
+
+            // If there was no value for DB
+            if (Session["DB"] == null)
+            {
+                // Set PC as the default Database
+                Session["DB"] = ConfigurationManager.ConnectionStrings["PC"].ConnectionString;
+            }
             string currentPage = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
             switch (currentPage.ToLower())
             {
@@ -37,6 +50,12 @@ namespace App
                     dashboardLink.Attributes["class"] += " active";
                     break;
             }
+        }
+
+        protected void dropdownDB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Session["DB"] = dropdownDB.SelectedValue;
+            Response.Redirect(Request.RawUrl); // Refresh to apply new DB
         }
     }
 }

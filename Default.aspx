@@ -3,7 +3,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <!-- Dashboard Section -->
-    <section class="bg-success-subtle bg-gradient p-5">
+    <section class="p-5">
         <div class="container-fluid">
 
             <!-- Page Heading -->

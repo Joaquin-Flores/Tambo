@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using BCrypt.Net;
 
-namespace Tambo.App_Code
+namespace Tambo.Code
 {
     public static class Hasher
     {

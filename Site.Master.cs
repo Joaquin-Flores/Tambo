@@ -15,16 +15,18 @@ namespace App
         protected void Page_Load(object sender, EventArgs e)
         {
             // Upon first load
-            if (!IsPostBack) {
-                
+            if (!IsPostBack)
+            {
+                if (Session["DataSource"] == null)
+                    Session["DataSource"] = "PC-MEGA-GAMER\\OLIMPO";
+
+                string selected = Session["DataSource"].ToString();
+
+                // Ensure the item exists before assigning it
+                if (dropdownDB.Items.FindByValue(selected) != null)
+                    dropdownDB.SelectedValue = selected;
             }
 
-            // If there was no value for DB
-            if (Session["DB"] == null)
-            {
-                // Set PC as the default Database
-                Session["DB"] = ConfigurationManager.ConnectionStrings["PC"].ConnectionString;
-            }
             string currentPage = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
             switch (currentPage.ToLower())
             {
@@ -54,8 +56,8 @@ namespace App
 
         protected void dropdownDB_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Session["DB"] = dropdownDB.SelectedValue;
-            Response.Redirect(Request.RawUrl); // Refresh to apply new DB
+            Session["DataSource"] = dropdownDB.SelectedValue;
+            Response.Redirect(Request.RawUrl); // Refresh to apply new source
         }
     }
 }

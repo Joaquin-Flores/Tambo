@@ -7,10 +7,10 @@
     <title>Tambo - Home Page</title>
     <script src="Scripts/bootstrap.js"></script>
     <link href="Content/Site.css" rel="stylesheet" />
-    <link href="Content/bootstrap.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <link href="Content/Bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="Content/Font-Awesome/css/all.min.css" rel="stylesheet" />
+    <link href="/Content/Fonts/fonts.css" rel="stylesheet" />
+    
 </head>
 <body data-bs-spy="scroll" data-bs-offset="0" tabindex="0" data-bs-target="#navbar" class="pt-5 mt-4" style="position:relative;">
 
@@ -20,7 +20,7 @@
             <div class="d-flex align-items-center justify-content-between">
                 <div class="col-3 mb-0">
                     <a href="/Home">
-                        <img src="tambo-logo-dark.png" class="img-fluid m-3" width="50" alt="Brand logo" />
+                        <img src="Content/Images/Logo/tambo-logo-dark.png" class="img-fluid m-3" width="50" alt="Brand logo" />
                     </a>
                 </div>
 

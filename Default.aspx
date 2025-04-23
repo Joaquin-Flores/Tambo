@@ -123,7 +123,7 @@
                         <!-- Card Body -->
                         <div class="card-body">
                             <div class="text-center"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                                <img src="Assets/data-trends.svg" class="img-fluid p-2" style="width: 25rem;" alt="Data trends" />
+                                <img src="Content/Images/data-trends.svg" class="img-fluid p-2" style="width: 25rem;" alt="Data trends" />
                             </div>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
                         <!-- Card Body -->
                         <div class="card-body">
                             <div class="text-center pt-4 pb-2"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                                <img src="Assets/pie-chart.svg" class="img-fluid p-2" style="width: 15rem;" alt="Pie chart" />
+                                <img src="Content/Images/pie-chart.svg" class="img-fluid p-2" style="width: 15rem;" alt="Pie chart" />
                             </div>
                             <div class="mt-4 text-center small">
                                 <span class="mr-2">
@@ -283,7 +283,7 @@
                         </div>
                         <div class="card-body">
                             <div class="text-center">
-                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="assets/cabin.svg" alt="cabin">
+                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="Content/Images/cabin.svg" alt="cabin">
                             </div>
                             <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
                                 constantly updated collection of beautiful svg images that you can use

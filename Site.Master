@@ -7,11 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><%: Page.Title %> - Tambo Admin</title>
     <script src="Scripts/bootstrap.js"></script>
-    <link href="Content/bootstrap.css" rel="stylesheet" />
     <link href="Content/Site.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+    <link href="Content/Bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="Content/Font-Awesome/css/all.min.css" rel="stylesheet" />
+    <link href="Content/Fonts/fonts.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -20,7 +19,7 @@
         <nav class="col-2 p-3  bg-gradient bg-dark position-fixed z-2" style=" top:0px; left:0px; bottom:0px;">
             <div class="text-center">
                 <a href="/Home">
-                    <img src="tambo-logo-light.png" class="img-fluid" width="100" alt="Brand logo" />
+                    <img src="Content/Images/Logo/tambo-logo-light.png" class="img-fluid" width="100" alt="Brand logo" />
                 </a>
             </div>
             <hr>
@@ -50,9 +49,9 @@
             <hr>
             <div class="justify-content-evenly d-flex">
                 <div>
-                    <asp:DropDownList CssClass="btn btn-light" ID="dropdownDB" runat="server" OnSelectedIndexChanged="dropdownDB_SelectedIndexChanged">
-                        <asp:ListItem Text="PC" Value="PC" />
-                        <asp:ListItem Text="Laptop" Value="LAPTOP" />
+                    <asp:DropDownList CssClass="btn btn-light pb-2" ID="dropdownDB" runat="server" OnSelectedIndexChanged="dropdownDB_SelectedIndexChanged">
+                        <asp:ListItem Text="PC" Value="PC-MEGA-GAMER\OLIMPO" />
+                        <asp:ListItem Text="Laptop" Value="DESKTOP-NQFK4S6\ALEJANDRIA" />
                     </asp:DropDownList>
                 </div>
                 <div>

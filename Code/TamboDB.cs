@@ -15,7 +15,8 @@ namespace Tambo.Code
         {
             get
             {
-                return HttpContext.Current.Session["DB"]?.ToString();
+                string dataSource = HttpContext.Current?.Session?["DataSource"]?.ToString();
+                return $"Data Source={dataSource};Initial Catalog=Tambo;Integrated Security=True;";
             }
         }
         ////////////////////////////////////////////////////////////////////////////////

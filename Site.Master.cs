@@ -54,10 +54,10 @@ namespace App
             }
         }
 
-        protected void dropdownDB_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Session["DataSource"] = dropdownDB.SelectedValue;
-            Response.Redirect(Request.RawUrl); // Refresh to apply new source
-        }
+            protected void dropdownDB_SelectedIndexChanged(object sender, EventArgs e)
+            {
+                Session["DataSource"] = dropdownDB.SelectedValue;
+                Response.Redirect(Request.RawUrl); // Refresh to apply new source
+            }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -21,10 +22,33 @@ namespace App
         private void LoadAllProducts()
         {
             DataTable dt = TamboDB.GetAllProducts();
-            gvProducts.DataSource = dt;
-            gvProducts.DataBind();
+            BuildProductsTable(dt);
         }
+        private void BuildProductsTable(DataTable dt)
+        {
+            StringBuilder html = new StringBuilder();
 
+            html.Append("<table id='myTable' class='display' style='width:100%'>");
+            html.Append("<thead><tr>");
+            foreach (DataColumn column in dt.Columns)
+            {
+                html.AppendFormat("<th>{0}</th>", column.ColumnName);
+            }
+            html.Append("</tr></thead>");
+            html.Append("<tbody>");
+            foreach (DataRow row in dt.Rows)
+            {
+                html.Append("<tr>");
+                foreach (var item in row.ItemArray)
+                {
+                    html.AppendFormat("<td>{0}</td>", item);
+                }
+                html.Append("</tr>");
+            }
+            html.Append("</tbody></table>");
+
+            ltTable.Text = html.ToString(); // ltTable = Literal control in your .aspx page
+        }
         protected void AddProduct_Click(object sender, EventArgs e)
         {
             // Get data from form fields
@@ -48,59 +72,6 @@ namespace App
                 // If failed, show an error message
                 Response.Write("<script>alert('Error adding product. Please try again.');</script>");
             }
-        }
-
-        protected void btnFilter_Click(object sender, EventArgs e)
-        {
-            // Parse values safely
-            string name = txtName.Text.Trim();
-            string description = txtDescription.Text.Trim();
-            string category = txtCategory.Text.Trim();
-            string shape = txtShape.Text.Trim();
-
-            decimal? minPrice = TryParseDecimal(txtMinPrice.Text);
-            decimal? maxPrice = TryParseDecimal(txtMaxPrice.Text);
-            int? minStock = TryParseInt(txtMinStock.Text);
-            int? maxStock = TryParseInt(txtMaxStock.Text);
-
-            DataTable dt = TamboDB.GetFilteredProducts(
-                nameContains: name,
-                descriptionContains: description,
-                category: category,
-                shape: shape,
-                minPrice: minPrice,
-                maxPrice: maxPrice,
-                minStock: minStock,
-                maxStock: maxStock
-            );
-
-            gvProducts.DataSource = dt;
-            gvProducts.DataBind();
-        }
-
-        protected void btnClear_Click(object sender, EventArgs e)
-        {
-            txtName.Text = "";
-            txtDescription.Text = "";
-            txtCategory.Text = "";
-            txtShape.Text = "";
-            txtMinPrice.Text = "";
-            txtMaxPrice.Text = "";
-            txtMinStock.Text = "";
-            txtMaxStock.Text = "";
-
-            LoadAllProducts();
-        }
-
-        // Helpers to parse nullable values
-        private decimal? TryParseDecimal(string input)
-        {
-            return decimal.TryParse(input, out var value) ? value : (decimal?)null;
-        }
-
-        private int? TryParseInt(string input)
-        {
-            return int.TryParse(input, out var value) ? value : (int?)null;
         }
     }
 }

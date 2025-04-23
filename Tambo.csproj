@@ -130,6 +130,10 @@
     <Content Include="Content\Bootstrap\bootstrap.min.css" />
     <Content Include="Content\Bootstrap\bootstrap.rtl.css" />
     <Content Include="Content\Bootstrap\bootstrap.rtl.min.css" />
+    <Content Include="Content\DataTables\datatables.css" />
+    <Content Include="Scripts\datatables.js" />
+    <Content Include="Content\DataTables\datatables.min.css" />
+    <Content Include="Scripts\datatables.min.js" />
     <Content Include="Content\Font-Awesome\css\all.css" />
     <Content Include="Content\Font-Awesome\css\all.min.css" />
     <Content Include="Content\Font-Awesome\css\brands.css" />

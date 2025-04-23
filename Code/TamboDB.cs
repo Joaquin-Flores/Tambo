@@ -16,7 +16,7 @@ namespace Tambo.Code
             get
             {
                 string dataSource = HttpContext.Current?.Session?["DataSource"]?.ToString();
-                return $"Data Source={dataSource};Initial Catalog=Tambo;Integrated Security=True;";
+                return $"Data Source={dataSource};Initial Catalog=Tambo;Integrated Security=True;encrypt=False;MultipleActiveResultSets=True;App=EntityFramework";
             }
         }
         ////////////////////////////////////////////////////////////////////////////////
@@ -120,95 +120,6 @@ namespace Tambo.Code
                 return rowsAffected > 0; // Return true if the insert was successful
             }
         }
-
-        public static DataTable GetFilteredProducts(
-            string nameContains = null,
-            string descriptionContains = null,
-            decimal? minPrice = null,
-            decimal? maxPrice = null,
-            int? minStock = null,
-            int? maxStock = null,
-            string category = null,
-            string shape = null)
-        {
-            using (SqlConnection conn = new SqlConnection(ConnectionString))
-            {
-                List<string> conditions = new List<string>();
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = conn;
-
-                // Filter: Name contains keyword (LIKE)
-                if (!string.IsNullOrEmpty(nameContains))
-                {
-                    conditions.Add("Name LIKE @Name");
-                    cmd.Parameters.AddWithValue("@Name", $"%{nameContains}%");
-                }
-
-                // Filter: Description contains keyword (LIKE)
-                if (!string.IsNullOrEmpty(descriptionContains))
-                {
-                    conditions.Add("Description LIKE @Description");
-                    cmd.Parameters.AddWithValue("@Description", $"%{descriptionContains}%");
-                }
-
-                // Filter: Minimum price
-                if (minPrice.HasValue)
-                {
-                    conditions.Add("UnitPrice >= @MinPrice");
-                    cmd.Parameters.AddWithValue("@MinPrice", minPrice.Value);
-                }
-
-                // Filter: Maximum price
-                if (maxPrice.HasValue)
-                {
-                    conditions.Add("UnitPrice <= @MaxPrice");
-                    cmd.Parameters.AddWithValue("@MaxPrice", maxPrice.Value);
-                }
-
-                // Filter: Minimum stock
-                if (minStock.HasValue)
-                {
-                    conditions.Add("StockQuantity >= @MinStock");
-                    cmd.Parameters.AddWithValue("@MinStock", minStock.Value);
-                }
-
-                // Filter: Maximum stock
-                if (maxStock.HasValue)
-                {
-                    conditions.Add("StockQuantity <= @MaxStock");
-                    cmd.Parameters.AddWithValue("@MaxStock", maxStock.Value);
-                }
-
-                // Filter: Product Category (exact match)
-                if (!string.IsNullOrEmpty(category))
-                {
-                    conditions.Add("ProductCategory = @Category");
-                    cmd.Parameters.AddWithValue("@Category", category);
-                }
-
-                // Filter: Product Shape (exact match)
-                if (!string.IsNullOrEmpty(shape))
-                {
-                    conditions.Add("ProductShape = @Shape");
-                    cmd.Parameters.AddWithValue("@Shape", shape);
-                }
-
-                // Build final WHERE clause
-                string whereClause = conditions.Count > 0
-                    ? "WHERE " + string.Join(" AND ", conditions)
-                    : "";
-
-                // Final query
-                cmd.CommandText = $"SELECT * FROM Products {whereClause}";
-
-                // Execute and return
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-                return dt;
-            }
-        }
-
 
         //////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////// --- Deliveries --- ///////////////////////////////

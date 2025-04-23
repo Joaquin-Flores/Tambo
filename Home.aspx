@@ -43,9 +43,9 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <img src="tambo-logo-color.png" class="img-fluid" alt="Brand Logo" />
+                    <img src="Content/Images/Logo/tambo-logo-color.png" class="img-fluid" alt="Brand Logo" />
                 </div>
-                <div class="col">
+                <div class="col align-content-center">
                     <h1 class="display-1">WELCOME TO 
                         <span class="tambo-hero-title">Tambo</span>
                     </h1>

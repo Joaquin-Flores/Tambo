@@ -131,6 +131,7 @@
     <Content Include="Content\Bootstrap\bootstrap.rtl.css" />
     <Content Include="Content\Bootstrap\bootstrap.rtl.min.css" />
     <Content Include="Content\DataTables\datatables.css" />
+    <Content Include="Fields.aspx" />
     <Content Include="Scripts\datatables.js" />
     <Content Include="Content\DataTables\datatables.min.css" />
     <Content Include="Scripts\datatables.min.js" />
@@ -2384,6 +2385,13 @@
     </Compile>
     <Compile Include="Deliveries.aspx.designer.cs">
       <DependentUpon>Deliveries.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Fields.aspx.cs">
+      <DependentUpon>Fields.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Fields.aspx.designer.cs">
+      <DependentUpon>Fields.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forgot-password.aspx.cs">
       <DependentUpon>Forgot-password.aspx</DependentUpon>

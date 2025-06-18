@@ -84,7 +84,7 @@ CREATE TABLE AnimalEventTypes (
     animal_event_type_id INT PRIMARY KEY IDENTITY(1,1),
     animal_event_name NVARCHAR(15) UNIQUE NOT NULL
 );
-INSERT INTO AnimalEventTypes (animal_event_name) VALUES ('Vaccine'), ('Disease'), ('Birth'), ('Insemination'), ('Weaning'), ('Castration');
+INSERT INTO AnimalEventTypes (animal_event_name) VALUES ('Vaccine'), ('Disease'), ('Birth'), ('Insemination'), ('Weaning'), ('Castration'), ('Sold'), ('Butcher');
 GO
 
 CREATE TABLE AnimalEvents (
@@ -175,7 +175,7 @@ CREATE TABLE Recurrence (
     recurrence_id INT PRIMARY KEY IDENTITY(1,1),
     recurrence_name NVARCHAR(30) UNIQUE NOT NULL
 );
-INSERT INTO Recurrence (recurrence_name) VALUES ('Daily'), ('Weekly'), ('Monthly'), ('Yearly');
+INSERT INTO Recurrence (recurrence_name) VALUES ('One time'), ('Daily'), ('Weekly'), ('Monthly'), ('Yearly');
 GO
 
 CREATE TABLE ReminderStatuses (
@@ -191,7 +191,6 @@ CREATE TABLE Reminders (
     description NVARCHAR(500),
     scheduled_date DATE,
     recurrence_id INT,
-    alert BIT,
     reminder_status_id INT,
     FOREIGN KEY (recurrence_id) REFERENCES Recurrence(recurrence_id),
     FOREIGN KEY (reminder_status_id) REFERENCES ReminderStatuses(reminder_status_id)

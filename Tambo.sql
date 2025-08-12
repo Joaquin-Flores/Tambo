@@ -28,7 +28,7 @@ CREATE TABLE AnimalTypes (
     type_id INT PRIMARY KEY IDENTITY(1,1),
     type_name NVARCHAR(25) UNIQUE NOT NULL
 );
-INSERT INTO AnimalTypes (type_name) VALUES ('Calf'), ('Cow'), ('Bull');
+INSERT INTO AnimalTypes (type_name) VALUES ('Ternero'), ('Vaca'), ('Toro');
 GO
 
 CREATE TABLE AnimalSpecies (
@@ -56,17 +56,17 @@ CREATE TABLE Origins (
     origin_id INT PRIMARY KEY IDENTITY(1,1),
     origin_name NVARCHAR(10) UNIQUE NOT NULL
 );
-INSERT INTO Origins (origin_name) VALUES ('Born'), ('Purchased');
+INSERT INTO Origins (origin_name) VALUES ('Propio'), ('Comprado');
 GO
 
 CREATE TABLE Animals (
-    animal_id INT PRIMARY KEY IDENTITY(1,1),
+    animal_id NVARCHAR(5) PRIMARY KEY,
     species_id INT,
     type_id INT,
     sex_id INT,
     birth_date DATE,
-    mother_id INT,
-    father_id INT,
+    mother_id NVARCHAR(5),
+    father_id NVARCHAR(5),
     origin_id INT,
     animal_status_id INT,
     notes NVARCHAR(500),
@@ -80,16 +80,25 @@ CREATE TABLE Animals (
 );
 GO
 
+INSERT INTO Animals (animal_id, species_id, type_id, sex_id, birth_date, mother_id, father_id, origin_id, animal_status_id, notes) VALUES
+('AA001', 1, 3, 1, '2019-03-12', NULL, NULL, 1, 1, 'Adan'),
+('AA002', 1, 2, 2, '2018-11-05', NULL, NULL, 1, 1, 'Eva'),
+('BB001', 1, 2, 2, '2020-03-12', 'AA002', 'AA001', 1, 1, 'Cain'),
+('BB002', 2, 3, 1, '2020-05-20', 'AA002', 'AA001', 1, 1, 'Abel'),
+('BB003', 2, 2, 2, '2020-07-11', 'AA002', 'BB001', 1, 1, 'Set'),
+('CC001', 1, 2, 2, '2022-04-10', 'AA002', 'BB002', 1, 1, 'Nieto 1'),
+('CC002', 1, 3, 1, '2022-06-15', 'AA002', 'CC001', 1, 1, 'Nieta 2');
+
 CREATE TABLE AnimalEventTypes (
     animal_event_type_id INT PRIMARY KEY IDENTITY(1,1),
     animal_event_name NVARCHAR(15) UNIQUE NOT NULL
 );
-INSERT INTO AnimalEventTypes (animal_event_name) VALUES ('Vaccine'), ('Disease'), ('Birth'), ('Insemination'), ('Weaning'), ('Castration'), ('Sold'), ('Butcher');
+INSERT INTO AnimalEventTypes (animal_event_name) VALUES ('Vacuna'), ('Enfermedad'), ('Nacimiento'), ('Inseminación'), ('Destete'), ('Castración'), ('Venta'), ('Faena');
 GO
 
 CREATE TABLE AnimalEvents (
     event_id INT PRIMARY KEY IDENTITY(1,1),
-    animal_id INT NOT NULL,
+    animal_id NVARCHAR(5) NOT NULL,
     animal_event_type_id INT,
     event_date DATE,
     description NVARCHAR(500),
@@ -134,7 +143,7 @@ GO
 
 CREATE TABLE AnimalFattening (
     record_id INT PRIMARY KEY IDENTITY(1,1),
-    animal_id INT NOT NULL,
+    animal_id NVARCHAR(5) NOT NULL,
     lot_id INT NOT NULL,
     initial_weight DECIMAL(10,2),
     final_weight DECIMAL(10,2),
@@ -201,7 +210,7 @@ CREATE TABLE ExpenseCategories (
     expense_category_id INT PRIMARY KEY IDENTITY(1,1),
     expense_category_name NVARCHAR(30) UNIQUE NOT NULL
 );
-INSERT INTO ExpenseCategories (expense_category_name) VALUES ('Buy Cows'), ('Buy Calves'), ('Food'), ('Sanity'), ('Staff'), ('Transport');
+INSERT INTO ExpenseCategories (expense_category_name) VALUES ('Compra vacas'), ('Compra terneros'), ('Comida'), ('Sanidad'), ('Personal'), ('Transporte');
 GO
 
 CREATE TABLE Expenses (
@@ -239,7 +248,7 @@ GO
 
 CREATE TABLE AnimalWeightHistory (
     record_id INT PRIMARY KEY IDENTITY(1,1),
-    animal_id INT NOT NULL,
+    animal_id NVARCHAR(5) NOT NULL,
     measurement_date DATE NOT NULL,
     weight_kg DECIMAL(10,2) NOT NULL,
     notes NVARCHAR(500),
@@ -260,8 +269,8 @@ GO
 
 CREATE TABLE BreedingAttempts (
     attempt_id INT PRIMARY KEY IDENTITY(1,1),
-    female_id INT NOT NULL,
-    male_id INT NULL, -- Opcional. Si tiene un toro asociado, ínseminación natural, si no, inseminación artificial.
+    female_id NVARCHAR(5) NOT NULL,
+    male_id NVARCHAR(5) NULL, -- Opcional. Si tiene un toro asociado, ínseminación natural, si no, inseminación artificial.
     attempt_date DATE NOT NULL,
     success BIT NULL, -- NULL = desconocido, 1 = exito, 0 = fallido
     pregnancy_confirmed_date DATE NULL,
@@ -273,7 +282,7 @@ GO
 
 CREATE TABLE FeedingHistory (
     feeding_record_id INT PRIMARY KEY IDENTITY(1,1),
-    animal_id INT NULL,
+    animal_id NVARCHAR(5) NULL,
     lot_id INT NULL,
     feeding_date DATE NOT NULL,
     feeding_type_id INT,

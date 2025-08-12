@@ -112,8 +112,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Bills.aspx" />
-    <Content Include="Chickens.aspx" />
+    <Content Include="calendario.aspx" />
+    <Content Include="configuracion.aspx" />
+    <Content Include="contabilidad.aspx" />
     <Content Include="Content\Bootstrap\bootstrap-grid.css" />
     <Content Include="Content\Bootstrap\bootstrap-grid.min.css" />
     <Content Include="Content\Bootstrap\bootstrap-grid.rtl.css" />
@@ -130,8 +131,12 @@
     <Content Include="Content\Bootstrap\bootstrap.min.css" />
     <Content Include="Content\Bootstrap\bootstrap.rtl.css" />
     <Content Include="Content\Bootstrap\bootstrap.rtl.min.css" />
+    <Content Include="Content\cria.css" />
     <Content Include="Content\DataTables\datatables.css" />
-    <Content Include="Fields.aspx" />
+    <Content Include="Content\Home.css" />
+    <Content Include="cria.aspx" />
+    <Content Include="recria.aspx" />
+    <Content Include="recursos-forrajeros.aspx" />
     <Content Include="Scripts\datatables.js" />
     <Content Include="Content\DataTables\datatables.min.css" />
     <Content Include="Scripts\datatables.min.js" />
@@ -2236,16 +2241,13 @@
     <Content Include="Content\Images\data-trends.svg" />
     <Content Include="Content\Images\nature.svg" />
     <Content Include="Content\Images\pie-chart.svg" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\Site.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Default.aspx" />
-    <Content Include="Deliveries.aspx" />
     <Content Include="favicon.ico" />
-    <Content Include="Forgot-password.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Home.aspx" />
-    <Content Include="Livestock.aspx" />
-    <Content Include="Login.aspx" />
-    <Content Include="Products.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -2313,6 +2315,7 @@
     <Content Include="Content\Fonts\roboto-v47-latin-700italic.woff2" />
     <Content Include="Content\Fonts\roboto-v47-latin-italic.woff2" />
     <Content Include="Content\Fonts\roboto-v47-latin-regular.woff2" />
+    <Content Include="Content\DataTables\datatables_esp.json" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.1.js" />
     <Content Include="Scripts\jquery-3.7.1.min.js" />
@@ -2340,13 +2343,12 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
-    <Content Include="Settings.aspx" />
-    <Content Include="Sign-up.aspx" />
     <Content Include="Site.Master" />
     <Content Include="Content\Images\Logo\tambo-logo-color.png" />
     <Content Include="Content\Images\Logo\tambo-logo-dark.png" />
     <Content Include="Content\Images\Logo\tambo-logo-light.png" />
     <Content Include="Tambo.sql" />
+    <Content Include="viejo sitemaster.html" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -2355,50 +2357,42 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Bills.aspx.cs">
-      <DependentUpon>Bills.aspx</DependentUpon>
+    <Compile Include="calendario.aspx.cs">
+      <DependentUpon>calendario.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Bills.aspx.designer.cs">
-      <DependentUpon>Bills.aspx</DependentUpon>
+    <Compile Include="calendario.aspx.designer.cs">
+      <DependentUpon>calendario.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Chickens.aspx.cs">
-      <DependentUpon>Chickens.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Chickens.aspx.designer.cs">
-      <DependentUpon>Chickens.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Code\blip.cs" />
     <Compile Include="Code\TamboDB.cs" />
     <Compile Include="Code\Hasher.cs" />
+    <Compile Include="configuracion.aspx.cs">
+      <DependentUpon>configuracion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="configuracion.aspx.designer.cs">
+      <DependentUpon>configuracion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="contabilidad.aspx.cs">
+      <DependentUpon>contabilidad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="contabilidad.aspx.designer.cs">
+      <DependentUpon>contabilidad.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="cria.aspx.cs">
+      <DependentUpon>cria.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="cria.aspx.designer.cs">
+      <DependentUpon>cria.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Deliveries.aspx.cs">
-      <DependentUpon>Deliveries.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Deliveries.aspx.designer.cs">
-      <DependentUpon>Deliveries.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Fields.aspx.cs">
-      <DependentUpon>Fields.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Fields.aspx.designer.cs">
-      <DependentUpon>Fields.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Forgot-password.aspx.cs">
-      <DependentUpon>Forgot-password.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Forgot-password.aspx.designer.cs">
-      <DependentUpon>Forgot-password.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -2410,41 +2404,20 @@
     <Compile Include="Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Livestock.aspx.cs">
-      <DependentUpon>Livestock.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Livestock.aspx.designer.cs">
-      <DependentUpon>Livestock.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Products.aspx.cs">
-      <DependentUpon>Products.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Products.aspx.designer.cs">
-      <DependentUpon>Products.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings.aspx.cs">
-      <DependentUpon>Settings.aspx</DependentUpon>
+    <Compile Include="recria.aspx.cs">
+      <DependentUpon>recria.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Settings.aspx.designer.cs">
-      <DependentUpon>Settings.aspx</DependentUpon>
+    <Compile Include="recria.aspx.designer.cs">
+      <DependentUpon>recria.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Sign-up.aspx.cs">
-      <DependentUpon>Sign-up.aspx</DependentUpon>
+    <Compile Include="recursos-forrajeros.aspx.cs">
+      <DependentUpon>recursos-forrajeros.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Sign-up.aspx.designer.cs">
-      <DependentUpon>Sign-up.aspx</DependentUpon>
+    <Compile Include="recursos-forrajeros.aspx.designer.cs">
+      <DependentUpon>recursos-forrajeros.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>

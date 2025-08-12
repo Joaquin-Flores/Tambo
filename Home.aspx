@@ -6,8 +6,9 @@
 <head runat="server">
     <title>Tambo - Home Page</title>
     <script src="Scripts/bootstrap.js"></script>
-    <link href="Content/Site.css" rel="stylesheet" />
     <link href="Content/Bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="Content/Site.css" rel="stylesheet" />
+    <link href="Content/Home.css" rel="stylesheet" />
     <link href="Content/Font-Awesome/css/all.min.css" rel="stylesheet" />
     <link href="/Content/Fonts/fonts.css" rel="stylesheet" />
     

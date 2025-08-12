@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace Tambo
 {
-    public partial class Settings : System.Web.UI.Page
+    public partial class configuracion : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

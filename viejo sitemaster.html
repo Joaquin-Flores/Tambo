@@ -1,0 +1,128 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="App.SiteMaster" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><%: Page.Title %> - Tambo Admin</title>
+    <link href="Content/Bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="Content/Site.css" rel="stylesheet" />
+    <link href="Content/Font-Awesome/css/all.min.css" rel="stylesheet" />
+    <link href="Content/Fonts/fonts.css" rel="stylesheet" />
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/jquery-3.7.1.min.js"></script>
+    <script src="Scripts/datatables.min.js"></script>
+    <link href="Content/DataTables/datatables.min.css" rel="stylesheet">
+</head>
+<body>
+    <form id="form1" runat="server">
+
+        <!-- Sidebar -->
+        <nav class="col-2 bg-dark p-3 sidebar-tambo position-fixed z-2" style=" top:0px; left:0px; bottom:0px;">
+            <div class="text-center">
+                <a href="/Home">
+                    <img src="Content/Images/Logo/tambo-logo-light.png" class="img-fluid" width="100" alt="Brand logo" />
+                </a>
+            </div>
+            <hr>
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item m-1 lead">
+                    <a id="dashboardLink" runat="server" href="/" class="nav-link text-light"><i class="fa-solid fa-home me-2"></i>Dashboard</a>
+                </li>
+                <li class="nav-item m-1 lead">
+                    <a id="livestockLink" runat="server" href="Livestock" class="nav-link text-light"><i class="fa-solid fa-cow me-2"></i>Livestock</a>
+                </li>
+                <li class="nav-item m-1 lead">
+                    <a id="productsLink" runat="server" href="Products" class="nav-link text-light"><i class="fa-solid fa-jar me-2"></i>Products</a>
+                </li>
+                <li class="nav-item m-1 lead">
+                    <a id="billsLink" runat="server" href="Bills" class="nav-link text-light"><i class="fa-solid fa-money-bill-transfer me-2"></i>Bills</a>
+                </li>
+                <li class="nav-item m-1 lead">
+                    <a id="deliveriesLink" runat="server" href="Deliveries" class="nav-link text-light"><i class="fa-solid fa-truck-fast me-2"></i>Deliveries</a>
+                </li>
+                <li class="nav-item m-1 lead">
+                    <a id="chickensLink" runat="server" href="Chickens" class="nav-link text-light"><i class="fa-solid fa-egg me-2"></i>Chickens</a>
+                </li>
+                <li class="nav-item m-1 lead">
+                    <a id="settingsLink" runat="server" href="settings" class="nav-link text-light"><i class="fa-solid fa-cog me-2"></i>Settings</a>
+                </li>
+            </ul>
+            <hr>
+            <div class="justify-content-evenly d-flex">
+                <div>
+                    <asp:DropDownList CssClass="btn btn-light pb-2" ID="dropdownDB" runat="server" OnSelectedIndexChanged="dropdownDB_SelectedIndexChanged" AutoPostBack="true">
+                        <asp:ListItem Text="Laptop" Value="DESKTOP-NQFK4S6\ALEJANDRIA" />
+                        <asp:ListItem Text="PC" Value="PC-MEGA-GAMER\OLIMPO" />
+                    </asp:DropDownList>
+                </div>
+                <div>
+                    <a class="btn btn-outline-light" href="/Home"><i class="fa-solid fa-right-from-bracket me-1"></i>Logout</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Topbar -->
+        <header class="topbar fixed-top bg-dark shadow-sm py-2 px-4 d-flex justify-content-between align-items-center" style="margin-left: 16.6667%;">
+            <!-- Notificaciones -->
+            <div class="d-flex align-items-center">
+                <div class="dropdown me-3">
+                    <a class="btn position-relative" href="#" role="button" id="dropdownNotification" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-bell text-white"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            3
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="dropdownNotification">
+                        <li><h6 class="dropdown-header">Notificaciones</h6></li>
+                        <li><a class="dropdown-item" href="#">Tienes una nueva orden</a></li>
+                        <li><a class="dropdown-item" href="#">Se actualizó el inventario</a></li>
+                        <li><a class="dropdown-item" href="#">Revisión de facturas pendiente</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Perfil -->
+            <div class="dropdown d-flex align-items-center">
+                <img src="https://media.istockphoto.com/id/1495088043/es/vector/icono-de-perfil-de-usuario-avatar-o-icono-de-persona-foto-de-perfil-s%C3%ADmbolo-de-retrato.jpg?s=1024x1024&w=is&k=20&c=ILoT12BEqzZyr8BxYLwUsaz9-y9Xcb-hl4n2xPLRKAs=" class="rounded-circle me-2" alt="Avatar" width="40" height="40">
+                <div class="text-white me-2 d-none d-md-block text-end">
+                    <strong>John Doe</strong><br />
+                    <small>admin</small>
+                </div>
+                <a class="btn btn-light btn-sm dropdown-toggle" href="#" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="profileDropdown">
+                    <li><a class="dropdown-item" href="#">Editar perfil</a></li>
+                    <li><a class="dropdown-item" href="#">Configuración</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <asp:LinkButton ID="logoutButton" runat="server" CssClass="dropdown-item" OnClick="Logout_Click">
+                            <i class="fa-solid fa-right-from-bracket me-1"></i> Cerrar sesión
+                        </asp:LinkButton>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+
+        <!-- Content of the page -->
+        <section class="row m-0 bg-black min-vh-100" style="margin-top: 64px !important;">
+            <div class="col-2"></div>
+            <div class="col-10 p-0">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+            </div>
+        </section>
+        <a onclick="scrollToTop()" class="scroll-to-top" href="javascript:void(0);">⇑</a>
+    </form>
+    <script type="text/javascript">
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>

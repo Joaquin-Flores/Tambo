@@ -11,124 +11,88 @@ namespace Tambo
 {
 
 
-    public partial class recria
+    public partial class FichaAnimal
     {
 
         /// <summary>
-        /// Control tablaBodyLiteral.
+        /// Control fichaTitulo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal tablaBodyLiteral;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl fichaTitulo;
 
         /// <summary>
-        /// Control idVaca.
+        /// Control animalEspecie.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText idVaca;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl animalEspecie;
 
         /// <summary>
-        /// Control especie.
+        /// Control animalTipo2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect especie;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl animalTipo2;
 
         /// <summary>
-        /// Control sexo.
+        /// Control animalEstado.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect sexo;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl animalEstado;
 
         /// <summary>
-        /// Control origen.
+        /// Control animalNacimiento.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect origen;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl animalNacimiento;
 
         /// <summary>
-        /// Control nacimiento.
+        /// Control animalSexo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl nacimiento;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl animalSexo;
 
         /// <summary>
-        /// Control estado.
+        /// Control animalOrigen.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect estado;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl animalOrigen;
 
         /// <summary>
-        /// Control selector_madre.
+        /// Control animalNotas.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect selector_madre;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl animalNotas;
 
         /// <summary>
-        /// Control selector_padre.
+        /// Control genealogiaLiteral.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect selector_padre;
-
-        /// <summary>
-        /// Control notas.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText notas;
-
-        /// <summary>
-        /// Control inputLoteEntryDate.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl inputLoteEntryDate;
-
-        /// <summary>
-        /// Control inputLoteFeedingTypeId.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect inputLoteFeedingTypeId;
-
-        /// <summary>
-        /// Control inputLoteExitDate.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl inputLoteExitDate;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl genealogiaLiteral;
     }
 }

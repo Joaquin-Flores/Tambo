@@ -1,11 +1,39 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="cria.aspx.cs" Inherits="Tambo.cria" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-    <link href="Content/cria.css" rel="stylesheet" />
-    
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">    
     <!-- Title Section -->
     <section class="p-4 pb-0">
         <div>
             <h1><i class="fa fa-cow"></i> Cría</h1>
+        </div>
+    </section>
+
+    <!-- Tarjetas de Estadísticas -->
+    <section class="p-4 pt-0">
+        <div class="row text-center">
+            <div class="col-md-3">
+                <div class="card bg-card light-text p-3 shadow-sm">
+                    <h4>Vientres en servicio</h4>
+                    <h2><asp:Literal ID="litVientres" runat="server"></asp:Literal></h2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-card light-text p-3 shadow-sm">
+                    <h4>Vacas preñadas</h4>
+                    <h2><asp:Literal ID="litPreniadas" runat="server"></asp:Literal></h2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-card light-text p-3 shadow-sm">
+                    <h4>Porcentaje de preñez</h4>
+                    <h2><asp:Literal ID="litPorcentaje" runat="server"></asp:Literal>%</h2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-card light-text p-3 shadow-sm">
+                    <h4>Edad promedio</h4>
+                    <h2><asp:Literal ID="litEdad" runat="server"></asp:Literal> años</h2>
+                </div>
+            </div>
         </div>
     </section>
 

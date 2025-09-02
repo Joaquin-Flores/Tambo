@@ -20,20 +20,54 @@ namespace Tambo.Code
             }
         }
 
+        ////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////// --- Ficha Animal  --- //////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////
 
-        ////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////// --- Animals --- //////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////
-        public static bool EmailExists(string email)
+        public static DataRow GetAnimalById(string animalId)
         {
+            DataTable dt = new DataTable();
+
             using (SqlConnection conn = new SqlConnection(ConnectionString))
             {
-                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Users WHERE Email = @Email", conn);
-                cmd.Parameters.AddWithValue("@Email", email);
-                conn.Open();
-                return (int)cmd.ExecuteScalar() > 0;
+                string query = @"
+                    SELECT 
+                        a.animal_id AS ID,
+                        s.species_name AS Especie,
+                        sx.sex_name AS Sexo,
+                        t.type_name AS Tipo,
+                        st.animal_status_name AS Estado,
+                        a.birth_date AS Nacimiento,
+                        o.origin_name AS Origen,
+                        a.notes AS Notas,
+                        m.animal_id AS MadreID,
+                        p.animal_id AS PadreID
+                    FROM Animals a
+                    INNER JOIN AnimalSpecies s ON a.species_id = s.species_id
+                    INNER JOIN Sexes sx ON a.sex_id = sx.sex_id
+                    INNER JOIN AnimalTypes t ON a.type_id = t.type_id
+                    INNER JOIN Origins o ON a.origin_id = o.origin_id
+                    INNER JOIN AnimalStatuses st ON a.animal_status_id = st.animal_status_id
+                    LEFT JOIN Animals m ON a.mother_id = m.animal_id
+                    LEFT JOIN Animals p ON a.father_id = p.animal_id
+                    WHERE a.animal_id = @animal_id
+                    ORDER BY a.animal_id DESC";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@animal_id", animalId);
+                    conn.Open();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+                }
             }
+
+            return dt.Rows.Count > 0 ? dt.Rows[0] : null;
         }
+
+        ////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////// --- Cría  --- //////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////
 
         public static void addAnimal(
             string animal_id,
@@ -104,6 +138,151 @@ namespace Tambo.Code
             return dt;
         }
 
+        public static DataRow GetEstadisticasCria()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                string query = @"
+            SELECT
+                SUM(CASE WHEN t.type_name = 'Vaca' AND st.animal_status_name = 'Vivo' THEN 1 ELSE 0 END) AS VientresEnServicio,
+                SUM(CASE WHEN t.type_name = 'Vaca' AND st.animal_status_name = 'Preñada' THEN 1 ELSE 0 END) AS VacasPreniadas,
+                SUM(CASE WHEN st.animal_status_name = 'Muerto' THEN 1 ELSE 0 END) AS Mortandad,
+                AVG(DATEDIFF(YEAR, a.birth_date, GETDATE())) AS EdadPromedio
+            FROM Animals a
+            INNER JOIN AnimalTypes t ON a.type_id = t.type_id
+            INNER JOIN AnimalStatuses st ON a.animal_status_id = st.animal_status_id";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    conn.Open();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+                }
+            }
+
+            return dt.Rows.Count > 0 ? dt.Rows[0] : null;
+        }
+
+
+        ////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////// --- Recría --- ///////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////
+
+        public static int CrearLote(DateTime entryDate, int feedingTypeId, DateTime? exitDate = null)
+        {
+            int newLotId = 0;
+
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                string query = @"
+                    INSERT INTO FatteningLots (entry_date, exit_date, feeding_type_id)
+                    OUTPUT INSERTED.lot_id
+                    VALUES (@entry_date, @exit_date, @feeding_type_id)";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@entry_date", entryDate);
+                    cmd.Parameters.AddWithValue("@feeding_type_id", feedingTypeId);
+
+                    if (exitDate.HasValue)
+                        cmd.Parameters.AddWithValue("@exit_date", exitDate.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@exit_date", DBNull.Value);
+
+                    conn.Open();
+                    newLotId = (int)cmd.ExecuteScalar();
+                }
+            }
+            return newLotId;
+        }
+
+        public static void AsignarLote(string animalId, int lotId, decimal initialWeight, DateTime entryDate, decimal? finalWeight = null, DateTime? exitDate = null)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                string query = @"
+                    INSERT INTO AnimalFattening (animal_id, lot_id, initial_weight, final_weight, entry_date, exit_date)
+                    VALUES (@animal_id, @lot_id, @initial_weight, @final_weight, @entry_date, @exit_date)";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@animal_id", animalId);
+                    cmd.Parameters.AddWithValue("@lot_id", lotId);
+                    cmd.Parameters.AddWithValue("@initial_weight", initialWeight);
+                    cmd.Parameters.AddWithValue("@entry_date", entryDate);
+
+                    if (finalWeight.HasValue)
+                        cmd.Parameters.AddWithValue("@final_weight", finalWeight.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@final_weight", DBNull.Value);
+
+                    if (exitDate.HasValue)
+                        cmd.Parameters.AddWithValue("@exit_date", exitDate.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@exit_date", DBNull.Value);
+
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public static DataTable GetTernerosRecria()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                string query = @"
+                SELECT 
+                    a.animal_id AS ID,
+                    s.species_name AS Especie,
+                    sx.sex_name AS Sexo,
+                    o.origin_name AS Origen,
+                    a.birth_date AS Nacimiento,
+                    m.animal_id AS MadreID,
+                    p.animal_id AS PadreID,
+                    st.animal_status_name AS Estado
+                FROM Animals a
+                INNER JOIN AnimalSpecies s ON a.species_id = s.species_id
+                INNER JOIN Sexes sx ON a.sex_id = sx.sex_id
+                INNER JOIN Origins o ON a.origin_id = o.origin_id
+                INNER JOIN AnimalStatuses st ON a.animal_status_id = st.animal_status_id
+                INNER JOIN AnimalTypes t ON a.type_id = t.type_id
+                LEFT JOIN Animals m ON a.mother_id = m.animal_id
+                LEFT JOIN Animals p ON a.father_id = p.animal_id
+                WHERE t.type_name IN ('Ternero')
+                ORDER BY a.animal_id DESC
+            ";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    conn.Open();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
+        }
+
+
+        ////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////// --- Viejo --- ///////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////
+        public static bool EmailExists(string email)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Users WHERE Email = @Email", conn);
+                cmd.Parameters.AddWithValue("@Email", email);
+                conn.Open();
+                return (int)cmd.ExecuteScalar() > 0;
+            }
+        }
+        
         public static bool ValidateLogin(string email, string password)
         {
             using (SqlConnection conn = new SqlConnection(ConnectionString))
@@ -145,9 +324,6 @@ namespace Tambo.Code
             }
         }
 
-        ////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////// --- Products --- ///////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////
         public static DataTable GetAllProducts()
         {
             using (SqlConnection conn = new SqlConnection(ConnectionString))

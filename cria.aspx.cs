@@ -17,19 +17,18 @@ namespace Tambo
             if (!IsPostBack)
             {
                 CargarTabla();
+                CargarEstadisticas();
             }
         }
 
         private void CargarTabla()
         {
             DataTable dt = TamboDB.GetVacasCria();
-
-            // Generar HTML para tbody
-            string html = "";   
+            string html = "";
             foreach (DataRow row in dt.Rows)
             {
-                string madre = row["MadreID"] == DBNull.Value || string.IsNullOrEmpty(row["MadreID"].ToString()) ? "-" : $"<a href='FichaAnimal.aspx?id={row["MadreID"]}'>{row["MadreID"]}</a>";
-                string padre = row["PadreID"] == DBNull.Value || string.IsNullOrEmpty(row["PadreID"].ToString()) ? "-" : $"<a href='FichaAnimal.aspx?id={row["PadreID"]}'>{row["PadreID"]}</a>";
+                string madre = row["MadreID"] == DBNull.Value || string.IsNullOrEmpty(row["MadreID"].ToString()) ? "-" : $"<a href='fichaAnimal.aspx?id={row["MadreID"]}'>{row["MadreID"]}</a>";
+                string padre = row["PadreID"] == DBNull.Value || string.IsNullOrEmpty(row["PadreID"].ToString()) ? "-" : $"<a href='fichaAnimal.aspx?id={row["PadreID"]}'>{row["PadreID"]}</a>";
                 
                 html += $@"
                 <tr>
@@ -41,13 +40,10 @@ namespace Tambo
                     <td>{madre} | {padre}</td>
                     <td>{row["Estado"]}</td>
                     <td>
-                        <button class='btn btn-sm btn-outline-light'><i class='fa fa-edit'></i></button>
-                        <button class='btn btn-sm btn-outline-danger'><i class='fa fa-trash'></i></button>
+                        <a href='fichaAnimal.aspx?id={row["ID"]}' class='btn btn btn-outline-light'><i class='fa fa-eye'></i></a>
                     </td>
                 </tr>";
             }
-
-            // Insertar HTML en el literal
             tablaBodyLiteral.Text = html;
         }
 
@@ -67,5 +63,20 @@ namespace Tambo
                 );
             CargarTabla();
         }
+        private void CargarEstadisticas()
+        {
+            DataRow row = TamboDB.GetEstadisticasCria();
+            if (row != null)
+            {
+                int vientres = Convert.ToInt32(row["VientresEnServicio"]);
+                int prenadas = Convert.ToInt32(row["VacasPreniadas"]);
+
+                litVientres.Text = vientres.ToString();
+                litPreniadas.Text = prenadas.ToString();
+                litPorcentaje.Text = vientres > 0 ? ((prenadas * 100) / vientres).ToString() : "0";
+                litEdad.Text = row["EdadPromedio"] != DBNull.Value ? Convert.ToInt32(row["EdadPromedio"]).ToString() : "-";
+            }
+        }
+
     }
 }

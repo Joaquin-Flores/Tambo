@@ -60,6 +60,15 @@ p {
     color: var(--text-dark);
 }
 
+.bg-card {
+    background-color: #323D4E;
+}
+
+.table-dark {
+    background-color: #273142;
+}
+
+
 .flex-form{
     display: flex;
     min-height: 100vh;

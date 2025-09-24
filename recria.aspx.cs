@@ -16,6 +16,7 @@ namespace Tambo
             if (!IsPostBack)
             {
                 CargarTablaTerneros();
+                CargarTablaLotes();
             }
         }
         private void CargarTablaTerneros()
@@ -43,6 +44,25 @@ namespace Tambo
             }
             tablaBodyLiteral.Text = html;
         }
+        private void CargarTablaLotes()
+        {
+            DataTable dt = TamboDB.GetLotesEngorde();
+            string html = "";
+            foreach (DataRow row in dt.Rows)
+            {
+                html += $@"
+                <tr>
+                    <td>{row["ID Lote"]}</td>
+                    <td>{Convert.ToDateTime(row["Fecha Ingreso"]).ToString("yyyy-MM-dd")}</td>
+                    <td>{row["Alimentación"]}</td>
+                    <td>{Convert.ToDateTime(row["Fecha Egreso"]).ToString("yyyy-MM-dd")}</td>
+                    <td>
+                        <a href='#' class='btn btn btn-outline-light'><i class='fa fa-eye'></i></a>
+                    </td>
+                </tr>";
+            }
+            tablaLotesBodyLiteral.Text = html;
+        }
         protected void agregarVaca(object sender, EventArgs e)
         {
             TamboDB.addAnimal(
@@ -61,11 +81,11 @@ namespace Tambo
         }
         protected void clickCrearLote(object sender, EventArgs e)
         {
-            //TamboDB.CrearLote(
-            //    DateTime.Parse(inputLoteEntryDate.Value),
-            //    int.Parse(inputLoteFeedingTypeId.Value),
-            //    DateTime.Parse(inputLoteExitDate.Value)
-            //    );
+            TamboDB.CrearLote(
+                DateTime.Parse(inputLoteEntryDate.Value),
+                int.Parse(inputLoteFeedingTypeId.Value),
+                DateTime.Parse(inputLoteExitDate.Value)
+                );
         }
     }
 }

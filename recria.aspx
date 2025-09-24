@@ -130,6 +130,43 @@
             </div>
         </div>
     </section>
+
+    <!-- Tabla de lotes de engorde -->
+    <section class="p-4 py-3">
+        <div class="card light-text bg-card p-5">
+            <div class="d-flex justify-content-between pb-2">
+                <h2>Lotes</h2>
+                <a href="#formularioLote" class="btn btn-primary btn-lg">+ Agregar Lote</a>
+            </div>
+            <div class="table-responsive">
+                <table id="tablaLotesEngorde" class="table-dark table-hover">
+                    <thead>
+                        <tr class="bg-card">
+                            <th>ID</th>
+                            <th>Ingreso</th>
+                            <th>Alimentación</th>
+                            <th>Egreso</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <asp:Literal ID="tablaLotesBodyLiteral" runat="server"></asp:Literal>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $(document).ready(function () {
+            $('#tablaLotesEngorde').DataTable({
+                "language": {
+                    "url": "Content/DataTables/datatables_esp.json"
+                },
+                "pageLength": 10
+            });
+        });
+    </script>
     
     <!-- Formulario agregar lote de engorde -->
     <section class="p-4 py-3 w-100" id="formularioLote">

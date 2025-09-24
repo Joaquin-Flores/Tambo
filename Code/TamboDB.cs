@@ -267,6 +267,64 @@ namespace Tambo.Code
 
             return dt;
         }
+        public static DataTable GetLotesEngorde()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                string query = @"
+                SELECT 
+                    l.lot_id      AS [ID Lote],
+                    l.entry_date  AS [Fecha Ingreso],
+                    l.exit_date   AS [Fecha Egreso],
+                    f.feeding_type_name AS [Alimentación],
+                    l.active      AS [Activo]
+                FROM FatteningLots l
+                INNER JOIN FeedingTypes f 
+                    ON l.feeding_type_id = f.feeding_type_id
+                WHERE l.active = 1
+                ORDER BY l.entry_date DESC";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    conn.Open();
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////// --- Contabilidad --- ///////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////
+
+        public static decimal GetCapitalVacas()
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                string query = @"
+            SELECT COUNT(*) 
+            FROM Animals a
+            INNER JOIN AnimalTypes t ON a.type_id = t.type_id
+            WHERE t.type_name IN ('Vaca','Toro')
+              AND a.animal_status_id IN (
+                    SELECT animal_status_id 
+                    FROM AnimalStatuses 
+                    WHERE animal_status_name NOT IN ('Muerto')
+              )";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    conn.Open();
+                    int cantidad = Convert.ToInt32(cmd.ExecuteScalar());
+                    return cantidad * 1000m;
+                }
+            }
+        }
+
 
 
         ////////////////////////////////////////////////////////////////////////////////

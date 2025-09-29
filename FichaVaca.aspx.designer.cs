@@ -11,7 +11,7 @@ namespace Tambo
 {
 
 
-    public partial class FichaAnimal
+    public partial class FichaVaca
     {
 
         /// <summary>

@@ -135,7 +135,9 @@
     <Content Include="Content\DataTables\datatables.css" />
     <Content Include="Content\Home.css" />
     <Content Include="cria.aspx" />
-    <Content Include="fichaAnimal.aspx" />
+    <Content Include="FichaLote.aspx" />
+    <Content Include="FichaTernero.aspx" />
+    <Content Include="FichaVaca.aspx" />
     <Content Include="recria.aspx" />
     <Content Include="recursos-forrajeros.aspx" />
     <Content Include="Scripts\datatables.js" />
@@ -2394,12 +2396,26 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="fichaAnimal.aspx.cs">
-      <DependentUpon>fichaAnimal.aspx</DependentUpon>
+    <Compile Include="FichaLote.aspx.cs">
+      <DependentUpon>FichaLote.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="fichaAnimal.aspx.designer.cs">
-      <DependentUpon>fichaAnimal.aspx</DependentUpon>
+    <Compile Include="FichaLote.aspx.designer.cs">
+      <DependentUpon>FichaLote.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FichaTernero.aspx.cs">
+      <DependentUpon>FichaTernero.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FichaTernero.aspx.designer.cs">
+      <DependentUpon>FichaTernero.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FichaVaca.aspx.cs">
+      <DependentUpon>FichaVaca.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FichaVaca.aspx.designer.cs">
+      <DependentUpon>FichaVaca.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

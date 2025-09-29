@@ -8,7 +8,7 @@ using Tambo.Code;
 
 namespace Tambo
 {
-    public partial class FichaAnimal : System.Web.UI.Page
+    public partial class FichaTernero : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -15,18 +15,18 @@ namespace Tambo
         {
             if (!IsPostBack)
             {
-                CargarTablaTerneros();
-                CargarTablaLotes();
+                CargarTerneros();
+                CargarLotes();
             }
         }
-        private void CargarTablaTerneros()
+        private void CargarTerneros()
         {
             DataTable dt = TamboDB.GetTernerosRecria();
             string html = "";
             foreach (DataRow row in dt.Rows)
             {
-                string madre = row["MadreID"] == DBNull.Value || string.IsNullOrEmpty(row["MadreID"].ToString()) ? "-" : $"<a href='fichaAnimal.aspx?id={row["MadreID"]}'>{row["MadreID"]}</a>";
-                string padre = row["PadreID"] == DBNull.Value || string.IsNullOrEmpty(row["PadreID"].ToString()) ? "-" : $"<a href='fichaAnimal.aspx?id={row["PadreID"]}'>{row["PadreID"]}</a>";
+                string madre = row["MadreID"] == DBNull.Value || string.IsNullOrEmpty(row["MadreID"].ToString()) ? "-" : $"<a href='FichaVaca.aspx?id={row["MadreID"]}'>{row["MadreID"]}</a>";
+                string padre = row["PadreID"] == DBNull.Value || string.IsNullOrEmpty(row["PadreID"].ToString()) ? "-" : $"<a href='FichaVaca.aspx?id={row["PadreID"]}'>{row["PadreID"]}</a>";
 
                 html += $@"
                 <tr>
@@ -38,13 +38,24 @@ namespace Tambo
                     <td>{madre} | {padre}</td>
                     <td>{row["Estado"]}</td>
                     <td>
-                        <a href='fichaAnimal.aspx?id={row["ID"]}' class='btn btn btn-outline-light'><i class='fa fa-eye'></i></a>
+                        <a href='FichaTernero.aspx?id={row["ID"]}' class='btn btn btn-outline-light'><i class='fa fa-eye'></i></a>
                     </td>
                 </tr>";
             }
             tablaBodyLiteral.Text = html;
+            
+            ddlTerneroId.Items.Clear();
+            // Insertamos opción por defecto
+            ddlTerneroId.Items.Add(new ListItem("-- Seleccione --", ""));
+
+            foreach (DataRow row in dt.Rows)
+            {
+                string id = row["ID"].ToString();
+                // si querés mostrar algo extra, se puede cambiar el text
+                ddlTerneroId.Items.Add(new ListItem(id, id));
+            }
         }
-        private void CargarTablaLotes()
+        private void CargarLotes()
         {
             DataTable dt = TamboDB.GetLotesEngorde();
             string html = "";
@@ -57,11 +68,21 @@ namespace Tambo
                     <td>{row["Alimentación"]}</td>
                     <td>{Convert.ToDateTime(row["Fecha Egreso"]).ToString("yyyy-MM-dd")}</td>
                     <td>
-                        <a href='#' class='btn btn btn-outline-light'><i class='fa fa-eye'></i></a>
+                        <a href='FichaLote.aspx?id={row["ID Lote"]}' class='btn btn btn-outline-light'><i class='fa fa-eye'></i></a>
                     </td>
                 </tr>";
             }
             tablaLotesBodyLiteral.Text = html;
+
+            ddlLoteId.Items.Clear();
+
+            ddlLoteId.Items.Add(new ListItem("-- Seleccione --", ""));
+
+            foreach (DataRow row in dt.Rows)
+            {
+                string lotId = row["ID Lote"].ToString();
+                ddlLoteId.Items.Add(new ListItem(lotId, lotId));
+            }
         }
         protected void agregarVaca(object sender, EventArgs e)
         {
@@ -77,15 +98,95 @@ namespace Tambo
                     int.Parse(estado.Value),
                     notas.Value
                 );
-            CargarTablaTerneros();
+            CargarTerneros();
         }
         protected void clickCrearLote(object sender, EventArgs e)
         {
-            TamboDB.CrearLote(
-                DateTime.Parse(inputLoteEntryDate.Value),
-                int.Parse(inputLoteFeedingTypeId.Value),
-                DateTime.Parse(inputLoteExitDate.Value)
-                );
+            DateTime entryDate = DateTime.Parse(inputLoteEntryDate.Value);
+            int feedingTypeId = int.Parse(inputLoteFeedingTypeId.Value);
+
+            DateTime? exitDate = null;
+            if (!string.IsNullOrWhiteSpace(inputLoteExitDate.Value))
+            {
+                exitDate = DateTime.Parse(inputLoteExitDate.Value);
+            }
+
+            TamboDB.CrearLote(entryDate, feedingTypeId, exitDate);
+            CargarLotes();
         }
+        protected void NuevoEngordeAnimal_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Validaciones básicas
+                if (string.IsNullOrEmpty(ddlTerneroId.SelectedValue))
+                {
+                    lblEngordeAnimalMensaje.CssClass = "text-danger";
+                    lblEngordeAnimalMensaje.Text = "Seleccioná un ternero.";
+                    return;
+                }
+                if (string.IsNullOrEmpty(ddlLoteId.SelectedValue))
+                {
+                    lblEngordeAnimalMensaje.CssClass = "text-danger";
+                    lblEngordeAnimalMensaje.Text = "Seleccioná un lote.";
+                    return;
+                }
+
+                string animalId = ddlTerneroId.SelectedValue;
+                int lotId = int.Parse(ddlLoteId.SelectedValue);
+
+                decimal? initialWeight = null;
+                if (!string.IsNullOrWhiteSpace(txtPesoInicial.Text) && decimal.TryParse(txtPesoInicial.Text, out decimal ip))
+                    initialWeight = ip;
+
+                decimal? finalWeight = null;
+                if (!string.IsNullOrWhiteSpace(txtPesoFinal.Text) && decimal.TryParse(txtPesoFinal.Text, out decimal fp))
+                    finalWeight = fp;
+
+                if (!DateTime.TryParse(txtFechaIngreso.Text, out DateTime entryDate))
+                {
+                    lblEngordeAnimalMensaje.CssClass = "text-danger";
+                    lblEngordeAnimalMensaje.Text = "Fecha de ingreso inválida.";
+                    return;
+                }
+
+                DateTime? exitDate = null;
+                if (!string.IsNullOrWhiteSpace(txtFechaEgreso.Text))
+                {
+                    if (DateTime.TryParse(txtFechaEgreso.Text, out DateTime ed))
+                        exitDate = ed;
+                    else
+                    {
+                        lblEngordeAnimalMensaje.CssClass = "text-danger";
+                        lblEngordeAnimalMensaje.Text = "Fecha de egreso inválida.";
+                        return;
+                    }
+                }
+
+                // Llamada a DB
+                bool ok = TamboDB.AsociarTerneroLote(animalId, lotId, initialWeight, entryDate, finalWeight, exitDate);
+
+                if (ok)
+                {
+                    lblEngordeAnimalMensaje.CssClass = "text-success";
+                    lblEngordeAnimalMensaje.Text = "✅ Ternero asociado al lote correctamente.";
+
+                    // Recargar selects/tabla para reflejar cambios
+                    CargarTerneros();
+                    CargarLotes();
+                }
+                else
+                {
+                    lblEngordeAnimalMensaje.CssClass = "text-danger";
+                    lblEngordeAnimalMensaje.Text = "No se pudo asociar el ternero. Reintentá.";
+                }
+            }
+            catch (Exception ex)
+            {
+                lblEngordeAnimalMensaje.CssClass = "text-danger";
+                lblEngordeAnimalMensaje.Text = "Error: " + ex.Message;
+            }
+        }
+
     }
 }

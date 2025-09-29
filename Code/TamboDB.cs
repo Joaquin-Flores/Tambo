@@ -297,6 +297,47 @@ namespace Tambo.Code
             return dt;
         }
 
+        public static bool AsociarTerneroLote(string animalId, int lotId, decimal? initialWeight, DateTime? entryDate, decimal? finalWeight = null, DateTime? exitDate = null)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                string query = @"
+                    INSERT INTO AnimalFattening (animal_id, lot_id, initial_weight, final_weight, entry_date, exit_date)
+                    VALUES (@animal_id, @lot_id, @initial_weight, @final_weight, @entry_date, @exit_date);";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@animal_id", animalId);
+                    cmd.Parameters.AddWithValue("@lot_id", lotId);
+
+                    if (initialWeight.HasValue)
+                        cmd.Parameters.AddWithValue("@initial_weight", initialWeight.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@initial_weight", DBNull.Value);
+
+                    if (finalWeight.HasValue)
+                        cmd.Parameters.AddWithValue("@final_weight", finalWeight.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@final_weight", DBNull.Value);
+
+                    if (entryDate.HasValue)
+                        cmd.Parameters.AddWithValue("@entry_date", entryDate);
+                    else
+                        cmd.Parameters.AddWithValue("@entry_date", DBNull.Value);
+
+                    if (exitDate.HasValue)
+                        cmd.Parameters.AddWithValue("@exit_date", exitDate.Value);
+                    else
+                        cmd.Parameters.AddWithValue("@exit_date", DBNull.Value);
+
+                    conn.Open();
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
+        }
+
+
+
         ////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////// --- Contabilidad --- ///////////////////////////
         ////////////////////////////////////////////////////////////////////////////////

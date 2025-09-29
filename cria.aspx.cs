@@ -27,8 +27,8 @@ namespace Tambo
             string html = "";
             foreach (DataRow row in dt.Rows)
             {
-                string madre = row["MadreID"] == DBNull.Value || string.IsNullOrEmpty(row["MadreID"].ToString()) ? "-" : $"<a href='fichaAnimal.aspx?id={row["MadreID"]}'>{row["MadreID"]}</a>";
-                string padre = row["PadreID"] == DBNull.Value || string.IsNullOrEmpty(row["PadreID"].ToString()) ? "-" : $"<a href='fichaAnimal.aspx?id={row["PadreID"]}'>{row["PadreID"]}</a>";
+                string madre = row["MadreID"] == DBNull.Value || string.IsNullOrEmpty(row["MadreID"].ToString()) ? "-" : $"<a href='fichaVaca.aspx?id={row["MadreID"]}'>{row["MadreID"]}</a>";
+                string padre = row["PadreID"] == DBNull.Value || string.IsNullOrEmpty(row["PadreID"].ToString()) ? "-" : $"<a href='fichaVaca.aspx?id={row["PadreID"]}'>{row["PadreID"]}</a>";
                 
                 html += $@"
                 <tr>
@@ -40,7 +40,7 @@ namespace Tambo
                     <td>{madre} | {padre}</td>
                     <td>{row["Estado"]}</td>
                     <td>
-                        <a href='fichaAnimal.aspx?id={row["ID"]}' class='btn btn btn-outline-light'><i class='fa fa-eye'></i></a>
+                        <a href='fichaVaca.aspx?id={row["ID"]}' class='btn btn btn-outline-light'><i class='fa fa-eye'></i></a>
                     </td>
                 </tr>";
             }

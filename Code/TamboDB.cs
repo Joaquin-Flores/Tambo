@@ -21,7 +21,7 @@ namespace Tambo.Code
         }
 
         ////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////// --- Ficha Animal  --- //////////////////////////
+        /////////////////////////////// --- Fichas Animales  --- //////////////////////////
         ////////////////////////////////////////////////////////////////////////////////
 
         public static DataRow GetAnimalById(string animalId)
@@ -63,6 +63,133 @@ namespace Tambo.Code
             }
 
             return dt.Rows.Count > 0 ? dt.Rows[0] : null;
+        }
+
+        public static int GetLoteActualTernero(string animalId)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                string query = @"
+                        SELECT TOP 1 af.lot_id
+                        FROM AnimalFattening af
+                        INNER JOIN FatteningLots fl ON af.lot_id = fl.lot_id
+                        WHERE af.animal_id = @animal_id
+                          AND af.active = 1
+                          AND fl.active = 1
+                        ORDER BY af.entry_date DESC";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@animal_id", animalId);
+                    conn.Open();
+                    object result = cmd.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        return Convert.ToInt32(result);
+                    }
+                    else
+                    {
+                        return -1;
+                    }
+                }
+            }
+        }
+        public static DataTable GetPesajesTernero(string animalId)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                string query = @"
+                SELECT measurement_date, weight_kg, notes
+                FROM AnimalWeightHistory
+                WHERE animal_id = @animal_id
+                ORDER BY measurement_date DESC";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@animal_id", animalId);
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
+        public static void InsertPesaje(string animalId, DateTime fecha, decimal peso, string notas)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                string query = @"
+                INSERT INTO AnimalWeightHistory (animal_id, measurement_date, weight_kg, notes)
+                VALUES (@animal_id, @fecha, @peso, @notas)";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@animal_id", animalId);
+                    cmd.Parameters.AddWithValue("@fecha", fecha);
+                    cmd.Parameters.AddWithValue("@peso", peso);
+                    cmd.Parameters.AddWithValue("@notas", (object)notas ?? DBNull.Value);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public static DataTable GetAnimalEventTypes()
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                string query = "SELECT animal_event_type_id, animal_event_name FROM AnimalEventTypes ORDER BY animal_event_name";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+        public static DataTable GetEventosTernero(string animalId)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                string query = @"
+                    SELECT e.event_id, e.event_date, t.animal_event_name, e.description
+                    FROM AnimalEvents e
+                    INNER JOIN AnimalEventTypes t ON e.animal_event_type_id = t.animal_event_type_id
+                    WHERE e.animal_id = @animal_id
+                    ORDER BY e.event_date DESC";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@animal_id", animalId);
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+        }
+
+        public static void InsertEvento(string animalId, int tipoId, DateTime fecha, string descripcion)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                string query = @"
+            INSERT INTO AnimalEvents (animal_id, animal_event_type_id, event_date, description)
+            VALUES (@animal_id, @tipo_id, @fecha, @desc)";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@animal_id", animalId);
+                    cmd.Parameters.AddWithValue("@tipo_id", tipoId);
+                    cmd.Parameters.AddWithValue("@fecha", fecha);
+                    cmd.Parameters.AddWithValue("@desc", (object)descripcion ?? DBNull.Value);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         ////////////////////////////////////////////////////////////////////////////////
@@ -336,6 +463,44 @@ namespace Tambo.Code
             }
         }
 
+        ////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////// --- Calendario --- /////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////
+
+        public static DataTable GetActiveReminders()
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                string sql = @"
+                        SELECT 
+                            r.task_id,
+                            r.title,
+                            r.description,
+                            r.scheduled_date,
+                            r.recurrence_id,
+                            rc.recurrence_name,
+                            r.reminder_status_id,
+                            rs.reminder_status_name,
+                            r.active
+                        FROM Reminders r
+                        LEFT JOIN Recurrence rc ON r.recurrence_id = rc.recurrence_id
+                        LEFT JOIN ReminderStatuses rs ON r.reminder_status_id = rs.reminder_status_id
+                        WHERE r.active = 1
+                        ORDER BY r.scheduled_date
+                    ";
+
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    conn.Open();
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
+        }
 
 
         ////////////////////////////////////////////////////////////////////////////////
@@ -363,141 +528,6 @@ namespace Tambo.Code
                     int cantidad = Convert.ToInt32(cmd.ExecuteScalar());
                     return cantidad * 1000m;
                 }
-            }
-        }
-
-
-
-        ////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////// --- Viejo --- ///////////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////
-        public static bool EmailExists(string email)
-        {
-            using (SqlConnection conn = new SqlConnection(ConnectionString))
-            {
-                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Users WHERE Email = @Email", conn);
-                cmd.Parameters.AddWithValue("@Email", email);
-                conn.Open();
-                return (int)cmd.ExecuteScalar() > 0;
-            }
-        }
-        
-        public static bool ValidateLogin(string email, string password)
-        {
-            using (SqlConnection conn = new SqlConnection(ConnectionString))
-            {
-                SqlCommand cmd = new SqlCommand("SELECT PasswordHash FROM Users WHERE Email = @Email", conn);
-                cmd.Parameters.AddWithValue("@Email", email);
-                conn.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    string hash = reader["PasswordHash"].ToString();
-                    return Hasher.Verify(password, hash);
-                }
-                return false;
-            }
-        }
-
-
-        public static void UpdateLastLogin(string email)
-        {
-            using (SqlConnection conn = new SqlConnection(ConnectionString))
-            {
-                SqlCommand cmd = new SqlCommand("UPDATE Users SET LastLogin = GETDATE() WHERE Email = @Email", conn);
-                cmd.Parameters.AddWithValue("@Email", email);
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-        public static int? GetUserID(string email)
-        {
-            using (SqlConnection conn = new SqlConnection(ConnectionString))
-            {
-                SqlCommand cmd = new SqlCommand("SELECT UserID FROM Users WHERE Email = @Email", conn);
-                cmd.Parameters.AddWithValue("@Email", email);
-                conn.Open();
-                object result = cmd.ExecuteScalar();
-                return result != null ? (int?)Convert.ToInt32(result) : null;
-            }
-        }
-
-        public static DataTable GetAllProducts()
-        {
-            using (SqlConnection conn = new SqlConnection(ConnectionString))
-            {
-                SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM Products", conn);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-                return dt;
-            }
-        }
-
-        public static bool CreateProduct(string name, string description, decimal unitPrice, int stockQuantity, string category, string shape)
-        {
-            using (SqlConnection conn = new SqlConnection(ConnectionString))
-            {
-                string query = "INSERT INTO Products (Name, Description, UnitPrice, StockQuantity, ProductCategory, ProductShape) " +
-                               "VALUES (@Name, @Description, @UnitPrice, @StockQuantity, @ProductCategory, @ProductShape)";
-                SqlCommand cmd = new SqlCommand(query, conn);
-
-                cmd.Parameters.AddWithValue("@Name", name);
-                cmd.Parameters.AddWithValue("@Description", description);
-                cmd.Parameters.AddWithValue("@UnitPrice", unitPrice);
-                cmd.Parameters.AddWithValue("@StockQuantity", stockQuantity);
-                cmd.Parameters.AddWithValue("@ProductCategory", category);
-                cmd.Parameters.AddWithValue("@ProductShape", shape);
-
-                conn.Open();
-                int rowsAffected = cmd.ExecuteNonQuery();
-                return rowsAffected > 0; // Return true if the insert was successful
-            }
-        }
-
-        //////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////// --- Deliveries --- ///////////////////////////////
-        //////////////////////////////////////////////////////////////////////////////////
-
-        public static DataTable GetAllDeliveries()
-        {
-            using (SqlConnection conn = new SqlConnection(ConnectionString))
-            {
-                SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM Deliveries", conn);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-                return dt;
-            }
-        }
-
-        public static void CreateDelivery(int clientId, DateTime deliveryDate, string status, string notes)
-        {
-            using (SqlConnection conn = new SqlConnection(ConnectionString))
-            {
-                SqlCommand cmd = new SqlCommand("INSERT INTO Deliveries (ClientID, DeliveryDate, Status, Notes) VALUES (@ClientID, @Date, @Status, @Notes)", conn);
-                cmd.Parameters.AddWithValue("@ClientID", clientId);
-                cmd.Parameters.AddWithValue("@Date", deliveryDate);
-                cmd.Parameters.AddWithValue("@Status", status);
-                cmd.Parameters.AddWithValue("@Notes", notes);
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-        }
-
-        ////////////////////////////////////////////////////////////////////////////////
-        /////////////////////////////// --- ProductDelivery --- ////////////////////////
-        ////////////////////////////////////////////////////////////////////////////////
-
-        public static void AddProductToDelivery(int productId, int deliveryId, int quantity)
-        {
-            using (SqlConnection conn = new SqlConnection(ConnectionString))
-            {
-                SqlCommand cmd = new SqlCommand("INSERT INTO ProductDelivery (ProductID, DeliveryID, Quantity) VALUES (@ProdID, @DelID, @Qty)", conn);
-                cmd.Parameters.AddWithValue("@ProdID", productId);
-                cmd.Parameters.AddWithValue("@DelID", deliveryId);
-                cmd.Parameters.AddWithValue("@Qty", quantity);
-                conn.Open();
-                cmd.ExecuteNonQuery();
             }
         }
     }

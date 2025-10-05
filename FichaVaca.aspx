@@ -18,7 +18,7 @@
                         <div class="row">
                             <div class="col-4">
                                 <p><strong>Especie:</strong> <span runat="server" id="animalEspecie"></span></p>
-                                <p><strong>Tipo:</strong> <span runat="server" id="animalTipo2"></span></p>
+                                <p><strong>Tipo:</strong> <span runat="server" id="animalTipo"></span></p>
                                 <p><strong>Estado:</strong> <span runat="server" id="animalEstado"></span></p>
                             </div>
                             <div class="col-4">

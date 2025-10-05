@@ -72,7 +72,7 @@
                 "language": {
                     "url": "Content/DataTables/datatables_esp.json"
                 },
-                "pageLength": 10
+                "pageLength": 5
             });
         });
     </script>

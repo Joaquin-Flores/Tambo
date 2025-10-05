@@ -40,7 +40,7 @@ namespace Tambo
             // Datos principales
             animalEspecie.InnerText = row["Especie"].ToString();
             animalSexo.InnerText = row["Sexo"].ToString();
-            animalOrigen.InnerText = row["Tipo"].ToString();
+            animalTipo.InnerText = row["Tipo"].ToString();
             animalEstado.InnerText = row["Estado"].ToString();
             animalNacimiento.InnerText = Convert.ToDateTime(row["Nacimiento"]).ToString("yyyy-MM-dd");
             animalOrigen.InnerText = row["Origen"].ToString();

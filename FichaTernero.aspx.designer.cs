@@ -33,13 +33,13 @@ namespace Tambo
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl animalEspecie;
 
         /// <summary>
-        /// Control animalTipo2.
+        /// Control animalTipo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl animalTipo2;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl animalTipo;
 
         /// <summary>
         /// Control animalEstado.
@@ -78,6 +78,15 @@ namespace Tambo
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl animalOrigen;
 
         /// <summary>
+        /// Control lblLoteActual.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblLoteActual;
+
+        /// <summary>
         /// Control animalNotas.
         /// </summary>
         /// <remarks>
@@ -94,5 +103,77 @@ namespace Tambo
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl genealogiaLiteral;
+
+        /// <summary>
+        /// Control tablaPesajesLiteral.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal tablaPesajesLiteral;
+
+        /// <summary>
+        /// Control inputFechaPesaje.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl inputFechaPesaje;
+
+        /// <summary>
+        /// Control inputPesoPesaje.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl inputPesoPesaje;
+
+        /// <summary>
+        /// Control inputNotasPesaje.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText inputNotasPesaje;
+
+        /// <summary>
+        /// Control tablaEventosLiteral.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal tablaEventosLiteral;
+
+        /// <summary>
+        /// Control ddlTipoEvento.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlTipoEvento;
+
+        /// <summary>
+        /// Control inputFechaEvento.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl inputFechaEvento;
+
+        /// <summary>
+        /// Control inputDescripcionEvento.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText inputDescripcionEvento;
     }
 }

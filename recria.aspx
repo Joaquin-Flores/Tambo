@@ -42,7 +42,7 @@
                 "language": {
                     "url": "Content/DataTables/datatables_esp.json"
                 },
-                "pageLength": 10
+                "pageLength": 5
             });
         });
     </script>
@@ -160,7 +160,7 @@
                 "language": {
                     "url": "Content/DataTables/datatables_esp.json"
                 },
-                "pageLength": 10
+                "pageLength": 5
             });
         });
     </script>
@@ -183,7 +183,7 @@
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <label for="inputLoteExitDate" class="form-label">Fecho de egreso (opcional)</label>
+                    <label for="inputLoteExitDate" class="form-label">Fecha de egreso (opcional)</label>
                     <input runat="server" type="date" class="form-control" id="inputLoteExitDate" />
                 </div>
             </div>

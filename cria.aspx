@@ -160,6 +160,32 @@
             </div>
         </div>
     </section>
+
+    <section class="p-4 py-3">
+        <div class="card light-text bg-card p-5">
+            <div class="d-flex justify-content-between pb-2">
+                <h2>Vacunas y tratamiento</h2>
+                <a href="#formulario" class="btn btn-primary btn-lg">+ Agregar Vaca</a>
+            </div>
+            <div class="table-responsive">
+                <table id="tablaVacunas" class="table-dark table-hover">
+                    <thead>
+                        <tr class="bg-card">
+                            <th>Mes(es)</th>
+                            <th>Vacuna</th>
+                            <th>Edad / Categoría</th>
+                            <th>Frecuencia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
     
     
 </asp:Content>

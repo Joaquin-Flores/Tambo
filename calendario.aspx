@@ -34,7 +34,59 @@
                 editable: false,
                 selectable: true,
                 initialView: 'dayGridMonth',
-                locale: 'es'
+                locale: 'es',
+                events: [
+                    {
+                        title: 'Pagar nuevos terneros',
+                        start: '2025-10-03T13:00:00',
+                        constraint: 'businessHours'
+                    },
+                    {
+                        title: 'Recibir al veterinario',
+                        start: '2025-10-13T11:00:00',
+                        constraint: 'availableForMeeting', // defined below
+                        color: '#257e4a'
+                    },
+                    {
+                        title: 'Comienza la parición',
+                        start: '2025-10-18',
+                        end: '2025-01-20'
+                    },
+                    {
+                        title: 'Vacunar lote #3',
+                        start: '2025-10-29T20:00:00'
+                    },
+
+                    // areas where "Meeting" must be dropped
+                    {
+                        groupId: 'availableForMeeting',
+                        start: '2025-10-11T10:00:00',
+                        end: '2025-10-11T16:00:00',
+                        display: 'background'
+                    },
+                    {
+                        groupId: 'availableForMeeting',
+                        start: '2025-10-13T10:00:00',
+                        end: '2025-10-13T16:00:00',
+                        display: 'background'
+                    },
+
+                    // red areas where no events can be dropped
+                    {
+                        start: '2025-10-24',
+                        end: '2025-10-28',
+                        overlap: false,
+                        display: 'background',
+                        color: '#ff9f89'
+                    },
+                    {
+                        start: '2025-10-06',
+                        end: '2025-10-08',
+                        overlap: false,
+                        display: 'background',
+                        color: '#ff9f89'
+                    }
+                ]
             });
             calendar.render();
         }); 

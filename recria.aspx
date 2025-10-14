@@ -11,7 +11,7 @@
     <section class="p-4 py-3">
         <div class="card light-text bg-card p-5">
             <div class="d-flex justify-content-between pb-2">
-                <h2>Vacas</h2>
+                <h2>Terneros</h2>
                 <a href="#formularioTernero" class="btn btn-primary btn-lg">+ Agregar Vaca</a>
             </div>
             <div class="table-responsive">

@@ -41,6 +41,44 @@
         </div>
     </section>
 
+    <!-- Tabla de gastos -->
+    <section class="p-4 py-3">
+        <div class="card light-text bg-card p-5">
+            <div class="d-flex justify-content-between pb-2">
+                <h2>Gastos</h2>
+                <a href="#formularioGasto" class="btn btn-primary btn-lg">+ Agregar Gasto</a>
+            </div>
+            <div class="table-responsive">
+                <table id="tablaGastos" class="table-dark table-hover">
+                    <thead>
+                        <tr class="bg-card">
+                            <th>ID</th>
+                            <th>Categoría</th>
+                            <th>Fecha</th>
+                            <th>Monto</th>
+                            <th>Descripción</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <asp:Literal ID="tablaBodyLiteral" runat="server"></asp:Literal>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $(document).ready(function () {
+            $('#tablaGastos').DataTable({
+                "language": {
+                    "url": "Content/DataTables/datatables_esp.json"
+                },
+                "pageLength": 5
+            });
+        });
+    </script>
+
     <!-- Formulario agregar gasto -->
     <section class="p-4 py-3 w-100" id="formularioGasto">
         <div class="card light-text bg-card p-5">

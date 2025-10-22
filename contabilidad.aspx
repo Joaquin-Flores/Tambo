@@ -65,6 +65,7 @@
                     </tbody>
                 </table>
             </div>
+            <asp:Button CssClass="btn btn-primary btn-lg py-3" Text="Exportar .xlsx" OnClick="ExportarGastos" runat="server" />
         </div>
     </section>
 

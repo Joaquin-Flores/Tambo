@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -77,6 +79,28 @@ namespace Tambo
                 litEdad.Text = row["EdadPromedio"] != DBNull.Value ? Convert.ToInt32(row["EdadPromedio"]).ToString() : "-";
             }
         }
+        protected void ExportarVacasCria(object sender, EventArgs e)
+        {
+            DataTable dt = TamboDB.GetVacasCria();
+            using (XLWorkbook workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add(dt, "Vacas");
+                worksheet.Columns().AdjustToContents();
 
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    stream.Position = 0;
+
+                    // 3. Descargar el archivo en el navegador
+                    Response.Clear();
+                    Response.Buffer = true;
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment;filename=Vacas.xlsx");
+                    Response.BinaryWrite(stream.ToArray());
+                    Response.End();
+                }
+            }
+        }
     }
 }

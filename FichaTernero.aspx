@@ -31,6 +31,7 @@
                                 <div class="col-4">
                                     <p><strong>Lote:</strong> <span id="lblLoteActual" runat="server"></span></p>
                                     <p><strong>Notas:</strong> <span runat="server" id="animalNotas"></span></p>
+                                    <asp:Button Text="Borrar Animal" CssClass="btn btn-light btn-lg" runat="server" OnClick="BorrarAnimal" />
                                 </div>
                             </div>
                         </div>
@@ -71,6 +72,7 @@
                         </tbody>
                     </table>
                 </div>
+            <asp:Button CssClass="btn btn-primary btn-lg py-3" Text="Exportar .xlsx" OnClick="ExportarPesajes" runat="server" />
             </div>
         </section>
 
@@ -130,6 +132,7 @@
                         </tbody>
                     </table>
                 </div>
+            <asp:Button CssClass="btn btn-primary btn-lg py-3" Text="Exportar .xlsx" OnClick="ExportarEventosTernero" runat="server" />
             </div>
         </section>
 

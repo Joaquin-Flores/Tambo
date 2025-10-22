@@ -1,8 +1,10 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
@@ -23,7 +25,23 @@ namespace Tambo.Code
         ////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////// --- Fichas Animales  --- //////////////////////////
         ////////////////////////////////////////////////////////////////////////////////
-
+        public static void SoftDeleteAnimal(string animalId)
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                string query = @"
+                    UPDATE Animals
+                    SET active = 0
+                    WHERE animal_id = @animal_id
+                ";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@animal_id", animalId);
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
         public static DataRow GetAnimalById(string animalId)
         {
             DataTable dt = new DataTable();
@@ -50,7 +68,7 @@ namespace Tambo.Code
                     INNER JOIN AnimalStatuses st ON a.animal_status_id = st.animal_status_id
                     LEFT JOIN Animals m ON a.mother_id = m.animal_id
                     LEFT JOIN Animals p ON a.father_id = p.animal_id
-                    WHERE a.animal_id = @animal_id
+                    WHERE a.animal_id = @animal_id AND a.active = 1
                     ORDER BY a.animal_id DESC";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -250,7 +268,7 @@ namespace Tambo.Code
                 INNER JOIN AnimalStatuses st ON a.animal_status_id = st.animal_status_id
                 LEFT JOIN Animals m ON a.mother_id = m.animal_id
                 LEFT JOIN Animals p ON a.father_id = p.animal_id
-                WHERE t.type_name IN ('Vaca', 'Toro')
+                WHERE t.type_name IN ('Vaca', 'Toro') AND a.active = 1
                 ORDER BY a.animal_id ASC
             ";
 
@@ -380,7 +398,7 @@ namespace Tambo.Code
                 INNER JOIN AnimalTypes t ON a.type_id = t.type_id
                 LEFT JOIN Animals m ON a.mother_id = m.animal_id
                 LEFT JOIN Animals p ON a.father_id = p.animal_id
-                WHERE t.type_name IN ('Ternero')
+                WHERE t.type_name IN ('Ternero') AND a.active = 1
                 ORDER BY a.animal_id DESC
             ";
 
@@ -405,8 +423,7 @@ namespace Tambo.Code
                     l.lot_id      AS [ID Lote],
                     l.entry_date  AS [Fecha Ingreso],
                     l.exit_date   AS [Fecha Egreso],
-                    f.feeding_type_name AS [Alimentación],
-                    l.active      AS [Activo]
+                    f.feeding_type_name AS [Alimentación]
                 FROM FatteningLots l
                 INNER JOIN FeedingTypes f 
                     ON l.feeding_type_id = f.feeding_type_id
@@ -506,6 +523,35 @@ namespace Tambo.Code
         ////////////////////////////////////////////////////////////////////////////////
         /////////////////////////////// --- Contabilidad --- ///////////////////////////
         ////////////////////////////////////////////////////////////////////////////////
+
+        public static DataTable GetGastos()
+        {
+            using (SqlConnection conn = new SqlConnection(ConnectionString))
+            {
+                string query = @"
+                    SELECT 
+                        e.expense_id,
+                        e.expense_date,
+                        e.description,
+                        e.amount,
+                        e.expense_category_id,
+                        ec.expense_category_name AS category_name
+                    FROM Expenses e
+                    LEFT JOIN ExpenseCategories ec 
+                        ON e.expense_category_id = ec.expense_category_id
+                    WHERE e.active = 1 
+                    ORDER BY e.expense_date DESC, e.expense_id DESC;
+                ";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    return dt;
+                }
+            }
+        }
 
         public static decimal GetCapitalVacas()
         {

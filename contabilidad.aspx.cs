@@ -1,7 +1,11 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -17,7 +21,36 @@ namespace Tambo
             {
                 CargarCategorias();
                 CargarResumenFinanciero();
+                CargarTablaGastos();
             }
+        }
+        private void CargarTablaGastos()
+        {
+            DataTable gastos = TamboDB.GetGastos();
+            StringBuilder html = new StringBuilder();
+
+            foreach (DataRow row in gastos.Rows)
+            {
+                string id = row["expense_id"].ToString();
+                string categoria = row["category_name"].ToString();
+                string fecha = Convert.ToDateTime(row["expense_date"]).ToString("yyyy-MM-dd");
+                string monto = Convert.ToDecimal(row["amount"]).ToString("N2");
+                string descripcion = row["description"].ToString();
+
+                html.Append($@"
+                    <tr>
+                        <td>{id}</td>
+                        <td>{categoria}</td>
+                        <td>{fecha}</td>
+                        <td>${monto}</td>
+                        <td>{descripcion}</td>
+                        <td>
+                            <a href='#' class='btn btn-sm btn-outline-danger'><i class='fa fa-trash'></i></a>
+                        </td>
+                    </tr>");
+            }
+
+            tablaBodyLiteral.Text = html.ToString();
         }
         private void CargarCategorias()
         {
@@ -89,6 +122,30 @@ namespace Tambo
             {
                 lblMensaje.CssClass = "text-danger";
                 lblMensaje.Text = "Error al agregar gasto: " + ex.Message;
+            }
+            CargarTablaGastos();
+        }
+        protected void ExportarGastos(object sender, EventArgs e)
+        {
+            DataTable dt = TamboDB.GetGastos();
+            using (XLWorkbook workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add(dt, "Gastos");
+                worksheet.Columns().AdjustToContents();
+
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    stream.Position = 0;
+
+                    // 3. Descargar el archivo en el navegador
+                    Response.Clear();
+                    Response.Buffer = true;
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment;filename=Gastos.xlsx");
+                    Response.BinaryWrite(stream.ToArray());
+                    Response.End();
+                }
             }
         }
     }

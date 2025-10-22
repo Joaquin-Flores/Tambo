@@ -56,5 +56,11 @@ namespace Tambo
 
             genealogiaLiteral.InnerHtml = $"<p><strong>Madre:</strong> {madre}</p><p><strong>Padre:</strong> {padre}</p>";
         }
+        protected void BorrarAnimal(object sender, EventArgs e)
+        {
+            TamboDB.SoftDeleteAnimal(Request.QueryString["id"]);
+            Response.Redirect("/cria");
+            
+        }
     }
 }

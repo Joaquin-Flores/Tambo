@@ -28,6 +28,7 @@
                             </div>
                             <div class="col-4">
                                 <p><strong>Notas:</strong> <span runat="server" id="animalNotas"></span></p>
+                                <asp:Button Text="Borrar Animal" CssClass="btn btn-light btn-lg" runat="server" OnClick="BorrarAnimal" />
                             </div>
                         </div>
                     </div>

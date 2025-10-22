@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -129,6 +131,58 @@ namespace Tambo
             string desc = string.IsNullOrWhiteSpace(inputDescripcionEvento.Value) ? null : inputDescripcionEvento.Value;
             TamboDB.InsertEvento(Request.QueryString["id"], tipo, fecha, desc);
             CargarEventos();
+        }
+
+        protected void BorrarAnimal(object sender, EventArgs e)
+        {
+            TamboDB.SoftDeleteAnimal(Request.QueryString["id"]);
+            Response.Redirect("/recria");
+        }
+        protected void ExportarPesajes(object sender, EventArgs e)
+        {
+            DataTable dt = TamboDB.GetPesajesTernero(Request.QueryString["id"]);
+            using (XLWorkbook workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add(dt, "Pesajes Ternero");
+                worksheet.Columns().AdjustToContents();
+
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    stream.Position = 0;
+
+                    // 3. Descargar el archivo en el navegador
+                    Response.Clear();
+                    Response.Buffer = true;
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment;filename=Pesajes ternero.xlsx");
+                    Response.BinaryWrite(stream.ToArray());
+                    Response.End();
+                }
+            }
+        }
+        protected void ExportarEventosTernero(object sender, EventArgs e)
+        {
+            DataTable dt = TamboDB.GetEventosTernero(Request.QueryString["id"]);
+            using (XLWorkbook workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add(dt, "Eventos Ternero");
+                worksheet.Columns().AdjustToContents();
+
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    stream.Position = 0;
+
+                    // 3. Descargar el archivo en el navegador
+                    Response.Clear();
+                    Response.Buffer = true;
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment;filename=Eventos ternero.xlsx");
+                    Response.BinaryWrite(stream.ToArray());
+                    Response.End();
+                }
+            }
         }
     }
 }

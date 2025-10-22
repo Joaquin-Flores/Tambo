@@ -33,6 +33,7 @@
                     </tbody>
                 </table>
             </div>
+            <asp:Button CssClass="btn btn-primary btn-lg py-3" Text="Exportar .xlsx" OnClick="ExportarTernerosRecria" runat="server" />
         </div>
     </section>
 
@@ -151,6 +152,7 @@
                     </tbody>
                 </table>
             </div>
+            <asp:Button CssClass="btn btn-primary btn-lg py-3" Text="Exportar .xlsx" OnClick="ExportarLotesEngorde" runat="server" />
         </div>
     </section>
 

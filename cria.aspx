@@ -63,6 +63,7 @@
                     </tbody>
                 </table>
             </div>
+            <asp:Button CssClass="btn btn-primary btn-lg py-3" Text="Exportar .xlsx" OnClick="ExportarVacasCria" runat="server" />
         </div>
     </section>
 
@@ -165,10 +166,9 @@
         <div class="card light-text bg-card p-5">
             <div class="d-flex justify-content-between pb-2">
                 <h2>Vacunas y tratamiento</h2>
-                <a href="#formulario" class="btn btn-primary btn-lg">+ Agregar Vaca</a>
             </div>
             <div class="table-responsive">
-                <table id="tablaVacunas" class="table-dark table-hover">
+                <table id="tablaVacunas" class="table table-striped table-dark table-hover">
                     <thead>
                         <tr class="bg-card">
                             <th>Mes(es)</th>
@@ -179,7 +179,82 @@
                     </thead>
                     <tbody>
                         <tr>
-                            
+                          <td class="py-4">Mar–Abr</td>
+                          <td class="py-4">Fiebre aftosa</td>
+                          <td class="py-4">Todos los bovinos y bubalinos</td>
+                          <td class="py-4">1ª campaña anual (Senasa)</td>
+                        </tr>
+                        <tr>
+                          <td class="py-4">Mar–Abr</td>
+                          <td class="py-4">Brucelosis (Cepa 19)</td>
+                          <td class="py-4">Terneras 3–8 meses</td>
+                          <td class="py-4">1ª campaña anual (Senasa)</td>
+                        </tr>
+                        <tr>
+                          <td class="py-4">Mar–Abr</td>
+                          <td class="py-4">Carbunclo bacteridiano</td>
+                          <td class="py-4">Bovinos ≥ 3 meses</td>
+                          <td class="py-4">1ª campaña anual</td>
+                        </tr>
+                        <tr>
+                          <td class="py-4">Mar–Abr</td>
+                          <td class="py-4">Policlostridiales (enterotoxemia)</td>
+                          <td class="py-4">Terneros 3 m, destete, y a los 12 meses</td>
+                          <td class="py-4">3 dosis + refuerzo anual</td>
+                        </tr>
+                        <tr>
+                          <td class="py-4">Mar–Abr</td>
+                          <td class="py-4">Botulismo</td>
+                          <td class="py-4">Bovinos ≥ 12 meses</td>
+                          <td class="py-4">Primovacunación + anual</td>
+                        </tr>
+                        <tr>
+                          <td class="py-4">Mar–Abr</td>
+                          <td class="py-4">Hemoglobinuria bacilar</td>
+                          <td class="py-4">Si zona endémica</td>
+                          <td class="py-4">Según recomendación</td>
+                        </tr>
+                        <tr>
+                          <td class="py-4">Mar–Abr</td>
+                          <td class="py-4">Leptospirosis</td>
+                          <td class="py-4">Post destete y vacas preñadas (tacto rectal)</td>
+                          <td class="py-4">1 dosis + refuerzo anual</td>
+                        </tr>
+                        <tr>
+                          <td class="py-4">Mar–Abr</td>
+                          <td class="py-4">Campylobacteriosis</td>
+                          <td class="py-4">Terneras antes de inseminación</td>
+                          <td class="py-4">2 dosis, luego anual</td>
+                        </tr>
+                        <tr>
+                          <td class="py-4">Mar–Abr</td>
+                          <td class="py-4">Queratoconjuntivitis</td>
+                          <td class="py-4">Terneras 4 m + refuerzo a los 30 días + anual</td>
+                          <td class="py-4">2 dosis iniciales + anual</td>
+                        </tr>
+                        <tr>
+                          <td class="py-4">Mar–Abr</td>
+                          <td class="py-4">IBR (rinotraqueitis)</td>
+                          <td class="py-4">Primovacunación (edad inicial), luego anual</td>
+                          <td class="py-4">1 primovac. + anual</td>
+                        </tr>
+                        <tr>
+                          <td class="py-4">Mar–Abr</td>
+                          <td class="py-4">BVD‑MD (Diarrea Viral Bovina)</td>
+                          <td class="py-4">Edad adecuada para reproductoras y terneros</td>
+                          <td class="py-4">Primovacunación + anual</td>
+                        </tr>
+                        <tr>
+                          <td class="py-4">Mar–Abr</td>
+                          <td class="py-4">Babesiosis/Anaplasmosis</td>
+                          <td class="py-4">Terneros 4‑10 meses</td>
+                          <td class="py-4">1 dosis, según riesgo</td>
+                        </tr>
+                        <tr>
+                          <td class="py-4">May–Jun</td>
+                          <td class="py-4">Fiebre aftosa (refuerzo)</td>
+                          <td class="py-4">Terneros y terneras recién vacunados</td>
+                          <td class="py-4">2ª campaña anual (Senasa)</td>
                         </tr>
                     </tbody>
                 </table>

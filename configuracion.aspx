@@ -17,23 +17,21 @@
         <!-- Tarjeta: Preferencias del sistema -->
         <div class="card bg-card shadow-sm p-3 mb-4">
             <h3 class="mb-3">Preferencias del Sistema</h3>
-            <form>
-                <div class="mb-3">
-                    <label class="form-label">Idioma</label>
-                    <select class="form-select bg-dark text-light">
-                        <option selected>Español</option>
-                        <option>Inglés</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Formato de Fecha</label>
-                    <select class="form-select bg-dark text-light">
-                        <option selected>DD/MM/AAAA</option>
-                        <option>MM/DD/AAAA</option>
-                    </select>
-                </div>
-                <button class="btn btn-success">💾 Guardar cambios</button>
-            </form>
+            <div class="mb-3">
+                <label class="form-label">Tema</label>
+                <select class="form-select bg-dark text-light">
+                    <option selected>Oscuro</option>
+                    <option>Claro</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Formato de Fecha</label>
+                <select class="form-select bg-dark text-light">
+                    <option selected>DD/MM/AAAA</option>
+                    <option>MM/DD/AAAA</option>
+                </select>
+            </div>
+            <button class="btn btn-success">💾 Guardar cambios</button>
         </div>
 
         <!-- Tarjeta: Gestión de usuarios -->
@@ -52,16 +50,6 @@
                         <td>admin</td>
                         <td>Administrador</td>
                         <td><span class="badge bg-success">Activo</span></td>
-                    </tr>
-                    <tr>
-                        <td>juanp</td>
-                        <td>Operador</td>
-                        <td><span class="badge bg-warning">Pendiente</span></td>
-                    </tr>
-                    <tr>
-                        <td>maria</td>
-                        <td>Consulta</td>
-                        <td><span class="badge bg-danger">Bloqueado</span></td>
                     </tr>
                 </tbody>
             </table>

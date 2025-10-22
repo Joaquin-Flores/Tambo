@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -187,6 +189,51 @@ namespace Tambo
                 lblEngordeAnimalMensaje.Text = "Error: " + ex.Message;
             }
         }
+        protected void ExportarTernerosRecria(object sender, EventArgs e)
+        {
+            DataTable dt = TamboDB.GetTernerosRecria();
+            using (XLWorkbook workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add(dt, "Terneros");
+                worksheet.Columns().AdjustToContents();
 
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    stream.Position = 0;
+
+                    // 3. Descargar el archivo en el navegador
+                    Response.Clear();
+                    Response.Buffer = true;
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment;filename=Terneros.xlsx");
+                    Response.BinaryWrite(stream.ToArray());
+                    Response.End();
+                }
+            }
+        }
+        protected void ExportarLotesEngorde(object sender, EventArgs e)
+        {
+            DataTable dt = TamboDB.GetLotesEngorde();
+            using (XLWorkbook workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add(dt, "Lotes de Engorde");
+                worksheet.Columns().AdjustToContents();
+
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    stream.Position = 0;
+
+                    // 3. Descargar el archivo en el navegador
+                    Response.Clear();
+                    Response.Buffer = true;
+                    Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                    Response.AddHeader("content-disposition", "attachment;filename=Lotes de engorde.xlsx");
+                    Response.BinaryWrite(stream.ToArray());
+                    Response.End();
+                }
+            }
+        }
     }
 }
